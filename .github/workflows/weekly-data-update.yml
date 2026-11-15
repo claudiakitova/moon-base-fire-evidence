@@ -1,4 +1,4 @@
-name: Weekly data update from NASA PSI
+name: weekly-data-update
 
 # Rebuilds the dataset and dashboard from NASA PSI every Monday.
 # Starts only after NASA Space Apps 2026 judging is over (winners are announced in January 2027),
