@@ -1,0 +1,7 @@
+# Raw NASA downloads are re-fetched by the scripts; only small metadata is kept in git.
+data/psi_files/*
+!data/psi_files/manifest.csv
+data/ntrs/*
+!data/ntrs/ntrs_records.json
+data/resources/
+__pycache__/

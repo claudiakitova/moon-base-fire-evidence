@@ -1,0 +1,94 @@
+name: Weekly data update from NASA PSI
+
+# Rebuilds the dataset and dashboard from NASA PSI every Monday.
+# Starts only after NASA Space Apps 2026 judging is over (winners are announced in January 2027),
+# so the submitted version stays unchanged during judging.
+on:
+  schedule:
+    - cron: "0 6 * * 1"        # Mondays 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Run even before the start date"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+
+env:
+  START_DATE: "2027-02-01"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Wait until judging is over
+        id: gate
+        run: |
+          if [ "$(date -u +%F)" \< "$START_DATE" ] && [ "${{ inputs.force }}" != "true" ]; then
+            echo "Before $START_DATE: skipping."; echo "go=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.go == 'true'
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.go == 'true'
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        if: steps.gate.outputs.go == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Download from NASA PSI and NTRS
+        if: steps.gate.outputs.go == 'true'
+        run: |
+          python code/psi_investigations.py
+          python code/psi_files.py --list
+          python code/psi_get_tables.py
+          python code/psi_get_experiment_tables.py
+          python code/ntrs_harvest.py --no-pdfs
+
+      - name: Rebuild dataset, ranking and dashboard
+        if: steps.gate.outputs.go == 'true'
+        run: |
+          python code/build_runs_bass.py
+          python code/build_runs_all.py
+          python code/build_investigations.py
+          python code/build_insights.py
+          python code/build_site.py
+
+      - name: Flag new investigations that need a written profile
+        if: steps.gate.outputs.go == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NEW=$(python code/check_new.py)
+          if [ -n "$NEW" ]; then
+            TITLE="New PSI investigations need a profile"
+            if ! gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number' | grep -q .; then
+              gh issue create --title "$TITLE" --body "The weekly update found PSI combustion investigations with no entry in data/curated/investigation_notes.json: $NEW. Their numbers are in the dataset, but summary, sensors and fire-safety notes need to be written and checked against the PSI record."
+            fi
+          fi
+
+      - name: Commit changes (as the repo owner)
+        if: steps.gate.outputs.go == 'true'
+        run: |
+          git config user.name "claudiakitova"
+          git config user.email "42248046+claudiakitova@users.noreply.github.com"
+          git add data/derived docs data/psi_combustion_investigations.json data/psi_files/manifest.csv data/ntrs/ntrs_records.json
+          if git diff --cached --quiet; then
+            echo "No changes this week."
+          else
+            git commit -m "Weekly data update from NASA PSI ($(date -u +%F))"
+            git push
+            curl -s -X POST -H "Authorization: Bearer ${{ github.token }}" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/pages/builds" > /dev/null || true
+          fi

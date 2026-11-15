@@ -100,6 +100,9 @@ python code/build_site.py
 ```
 Python 3.11, `requests`, `openpyxl`.
 
+## Weekly updates
+From February 1, 2027 (after Space Apps judging), a GitHub Actions workflow (`.github/workflows/update-data.yml`) re-downloads the PSI records and tables every Monday, rebuilds the dataset, ranking and dashboard, and commits any changes. If PSI adds an investigation that has no written profile yet, it opens an issue instead of publishing a blank one.
+
 ## Limits
 - **PSI only.** Every count here is about what PSI's combustion tables hold, not everything NASA has flown. Saffire IV–VI and SoFIE are not in PSI yet.
 - PSI tables differ in what they record; many lack pressure or flow. We report what each table gives.
