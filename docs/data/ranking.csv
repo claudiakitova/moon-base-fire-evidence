@@ -1,0 +1,49 @@
+environment,psi,acronym,total,material,role,atmosphere,evidence,why_atmosphere
+moon,PSI-20,ACME BRE,80,28,25,18,9,Has tests at >=30% O2 at or near Moon Base pressure (or pressure not recorded).
+moon,PSI-25,BASS-II,73,35,25,0,13,No tests at elevated oxygen in the PSI table.
+moon,PSI-26,BASS,73,35,25,0,13,No tests at elevated oxygen in the PSI table.
+moon,PSI-69,FLEX,73,15,25,18,15,Has tests at >=30% O2 at or near Moon Base pressure (or pressure not recorded).
+moon,PSI-98,SAFFIRE-I,65,35,25,0,5,No tests at elevated oxygen in the PSI table.
+moon,PSI-99,SAFFIRE-II,65,35,25,0,5,No tests at elevated oxygen in the PSI table.
+moon,PSI-100,SAFFIRE-III,65,35,25,0,5,Oxygen is not recorded in the PSI table.
+moon,PSI-101,SAME-R,61,25,25,0,11,Oxygen is not recorded in the PSI table.
+moon,PSI-68,FLEX-2,59,15,25,12,7,"PSI test envelope lists 30% O2 and 0.5 atm among its options, but not which combinations were run."
+moon,PSI-102,SAME,57,25,25,0,7,Oxygen is not recorded in the PSI table.
+moon,PSI-62,Concurrent Flame Spread Modeling using F,52,24,25,0,3,Ground study: no flight atmosphere of its own.
+moon,PSI-159,ACME CFI-G,52,10,8,25,9,Has tests inside the Moon Base box (>=30% O2 and <=0.694 atm).
+moon,PSI-10,ACME/Flame Design,51,10,8,18,15,Has tests at >=30% O2 at or near Moon Base pressure (or pressure not recorded).
+moon,PSI-23,ACME s-Flame,47,10,8,18,11,Has tests at >=30% O2 at or near Moon Base pressure (or pressure not recorded).
+moon,PSI-107,SPICE,46,10,25,0,11,Oxygen is not recorded in the PSI table.
+moon,PSI-115,Utilization of the Smoke Aerosol Measure,43,18,25,0,0,Ground study: no flight atmosphere of its own.
+moon,PSI-117,Effect of External Thermo-Convective Per,40,10,25,0,5,Ground study: no flight atmosphere of its own.
+moon,PSI-142,Quantitative Studies of Cool Flame Trans,37,7,25,0,5,Ground study: no flight atmosphere of its own.
+moon,PSI-47,DAFT / DAFT-2,36,8,25,0,3,Oxygen is not recorded in the PSI table.
+moon,PSI-60,Computational and Experimental Analysis ,33,7,25,0,1,Ground study: no flight atmosphere of its own.
+moon,PSI-39,CFI,32,15,8,0,9,No tests at elevated oxygen in the PSI table.
+moon,PSI-22,ACME E-FIELD Flames,31,10,8,0,13,Oxygen is not recorded in the PSI table.
+moon,PSI-21,ACME CLD Flame,29,10,8,0,11,Oxygen is not recorded in the PSI table.
+moon,PSI-106,SLICE,25,10,8,0,7,Oxygen is not recorded in the PSI table.
+spacecraft,PSI-26,BASS,98,35,25,25,13,"95 of 121 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-25,BASS-II,96,35,25,23,13,"51 of 129 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-98,SAFFIRE-I,90,35,25,25,5,"2 of 2 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-99,SAFFIRE-II,90,35,25,25,5,"9 of 9 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-20,ACME BRE,83,28,25,21,9,"5 of 18 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-100,SAFFIRE-III,77,35,25,12,5,"Oxygen is not recorded in the PSI table; tests ran in Cygnus cargo module air (assumed about 21%, 1 atm)."
+spacecraft,PSI-69,FLEX,74,15,25,19,15,"57 of 274 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-101,SAME-R,73,25,25,12,11,"Oxygen is not recorded in the PSI table; tests ran in Glovebox air (assumed about 21%, 1 atm)."
+spacecraft,PSI-102,SAME,69,25,25,12,7,"Oxygen is not recorded in the PSI table; tests ran in Glovebox air (assumed about 21%, 1 atm)."
+spacecraft,PSI-68,FLEX-2,62,15,25,15,7,PSI test envelope includes 21% O2 and 1.0 atm; individual runs are not listed.
+spacecraft,PSI-107,SPICE,58,10,25,12,11,"Oxygen is not recorded in the PSI table; tests ran in Glovebox flow-duct air (assumed about 21%, 1 atm)."
+spacecraft,PSI-10,ACME/Flame Design,55,10,8,22,15,"71 of 207 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-23,ACME s-Flame,54,10,8,25,11,"15 of 18 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-39,CFI,53,15,8,21,9,"28 of 87 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-62,Concurrent Flame Spread Modeling using F,52,24,25,0,3,Ground study: no flight atmosphere of its own.
+spacecraft,PSI-159,ACME CFI-G,45,10,8,18,9,"27 of 179 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded)."
+spacecraft,PSI-115,Utilization of the Smoke Aerosol Measure,43,18,25,0,0,Ground study: no flight atmosphere of its own.
+spacecraft,PSI-117,Effect of External Thermo-Convective Per,40,10,25,0,5,Ground study: no flight atmosphere of its own.
+spacecraft,PSI-106,SLICE,37,10,8,12,7,"Oxygen is not recorded in the PSI table; tests ran in Glovebox flow-duct air (assumed about 21%, 1 atm)."
+spacecraft,PSI-142,Quantitative Studies of Cool Flame Trans,37,7,25,0,5,Ground study: no flight atmosphere of its own.
+spacecraft,PSI-47,DAFT / DAFT-2,36,8,25,0,3,Oxygen is not recorded in the PSI table.
+spacecraft,PSI-60,Computational and Experimental Analysis ,33,7,25,0,1,Ground study: no flight atmosphere of its own.
+spacecraft,PSI-22,ACME E-FIELD Flames,31,10,8,0,13,Oxygen is not recorded in the PSI table.
+spacecraft,PSI-21,ACME CLD Flame,29,10,8,0,11,Oxygen is not recorded in the PSI table.

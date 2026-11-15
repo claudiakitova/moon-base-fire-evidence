@@ -1,0 +1,311 @@
+{
+  "_about": "Per-investigation notes written with SI (Claude, Anthropic) from the PSI investigation records (fields Objectives, Approach, Hypothesis, Research Impacts/Earth Benefits, Keywords, Experiment Hardware) and the PSI Experimental tables. The team checked each note against its source. 'src' names the PSI record field(s) or file a note comes from. Roles follow the challenge brief: prevention, detection, suppression; 'fundamentals' means basic flame science with indirect fire-safety value.",
+  "_generated_with": "SI-assisted (Claude, Anthropic); reviewed by Team Blue Flame",
+  "PSI-10": {
+    "roles": [
+      "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Spherical diffusion flames of ethylene and methane, burning outward (normal) or inward (inverse), to find when flames start to soot and when they go out as dilution, flow and pressure change.",
+    "fuel_form": "Spherical porous burner (normal and inverse flames); also coflow burners. The record names ethylene and methane, diluted with N2 or CO2; the PSI run table lists ethylene (C2H4) and propane (C3H8).",
+    "sensors": "Cameras, radiometers, photomultiplier tubes, thermocouples.",
+    "fire_safety": "Extinction limits of gas flames versus oxygen and dilution. Indirect for habitats: no real materials burned.",
+    "earth": "Cleaner, more efficient combustors, including coal power plant designs.",
+    "src": "PSI-10 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-20": {
+    "roles": [
+      "prevention"
+    ],
+    "material": "emulator",
+    "summary": "A gas burner tuned to behave like burning solids (the Burning Rate Emulator), used to map when materials keep burning in still air, as a function of material properties.",
+    "fuel_form": "CH4/N2 and C2H4/N2 mixtures through porous circular burners, 25 and 50 mm in diameter.",
+    "sensors": "Heat flux sensor and burner surface temperature, plus flame imaging.",
+    "fire_safety": "PSI's record states the planned atmospheres included NASA exploration atmospheres: 14.7 psia at 21% O2, 10.2 psia at 26.5% O2 and 8.2 psia at 34% O2. It reports quasi-steady burning matching PMMA and nylon in microgravity without airflow in elevated-oxygen atmospheres, while the same flames at 21% O2 self-extinguished. That matters because stopping ventilation is a standard step in fighting a spacecraft fire.",
+    "key_finding": "In elevated oxygen, flames kept burning with no airflow; at 21% they went out on their own (PSI record, preliminary results).",
+    "earth": "Suggests NASA's cone calorimeter test (NASA-STD-6001 Test 2) can measure the properties that predict microgravity burning.",
+    "src": "PSI-20 record: Objectives, Research Impacts/Earth Benefits"
+  },
+  "PSI-21": {
+    "roles": [
+      "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Weak and sooty coflow flames of methane and ethylene, measured to test computer models at the extremes of fuel dilution.",
+    "fuel_form": "Methane and ethylene, diluted, on a coflow burner.",
+    "sensors": "OH* and CH* chemiluminescence imaging, soot luminosity, laser extinction, thin-filament pyrometry.",
+    "fire_safety": "Extinction and soot behavior for model validation. Indirect for habitats.",
+    "earth": "Better models of soot and extinction for practical combustion devices.",
+    "src": "PSI-21 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-22": {
+    "roles": [
+      "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Methane and ethylene flames pushed by an electric field (up to 10 kV) acting on the ions inside the flame. The challenge brief notes this mimics partial gravity.",
+    "fuel_form": "Methane and ethylene diluted with N2; gas-jet burner and coflow burner, with a copper mesh electrode above.",
+    "sensors": "Ion current through the flame, flame response to electric forcing, imaging.",
+    "fire_safety": "The only PSI investigation that imitates partial gravity (via ion-driven flow). The PSI record says it serves no space application directly.",
+    "earth": "Electric-field control of flames to cut pollutants and fuel use.",
+    "src": "PSI-22 record: Approach, Research Impacts; challenge brief (Partial-gravity data)"
+  },
+  "PSI-23": {
+    "roles": [
+      "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Spherical diffusion flames of hydrogen, methane and ethylene, used to measure flame structure, extinction limits and predicted pulsating instabilities.",
+    "fuel_form": "H2/CH4 and C2H4 mixtures with N2, He or CO2 diluents, from a spherical porous burner.",
+    "sensors": "Spectrally resolved images, flame and burner temperatures, radiative flux, flow rates, pressure, acceleration.",
+    "fire_safety": "Extinction limits for model validation. Indirect for habitats.",
+    "earth": "Engine and combustor performance and emissions.",
+    "src": "PSI-23 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-25": {
+    "roles": [
+      "prevention",
+      "suppression"
+    ],
+    "material": "solid",
+    "summary": "Real solid fuels burned in a small wind tunnel on the ISS to find ignition, flame spread and extinction limits at low airflow, and to compare with NASA's ground flammability test.",
+    "fuel_form": "PMMA slabs, rods, spherical sections, films and fabric sheets; airflow up to 40 cm/s.",
+    "sensors": "Video imaging in the Microgravity Science Glovebox; on-board combustion product sensors (CSA-CP, CDM).",
+    "fire_safety": "Tests whether NASA's upward-burning ground test (NASA-STD-6001 Test 1) is conservative for space. Oxygen was varied only below 21% (nitrogen added), so no high-oxygen data.",
+    "earth": "Validated models for wildfires, building fires and waste-to-energy combustion.",
+    "src": "PSI-25 record: Objectives, Approach, Hypothesis, Research Impacts"
+  },
+  "PSI-26": {
+    "roles": [
+      "prevention",
+      "suppression"
+    ],
+    "material": "solid",
+    "summary": "The first BASS series: fabrics and plastics burned in opposed and concurrent airflow, plus tests of an inert gas extinguishing agent like the one used on the ISS.",
+    "fuel_form": "Sibal fabric (75% cotton, 25% fiberglass), Nomex, Ultem; flat samples, spheres and cylinders in a 76 x 76 mm flow duct; airflow up to 40 cm/s.",
+    "sensors": "Top and edge-view cameras: flame size, shape, color, spread rate, quenching.",
+    "fire_safety": "Links ground tests to flight behavior and tests nitrogen as a suppressant, a direct link to current extinguishing methods.",
+    "earth": "Models for terrestrial fire problems; performance-based material selection.",
+    "src": "PSI-26 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-39": {
+    "roles": [
+      "fundamentals"
+    ],
+    "material": "droplet",
+    "summary": "Burning droplets of jet-fuel-like liquids to study cool flames, low-temperature flames that keep burning after the hot flame goes out.",
+    "fuel_form": "n-Dodecane, n-dodecane/iso-dodecane mixtures and farnesane droplets, tethered on silicon-carbide fibers or between needles; helium dilution.",
+    "sensors": "Black-and-white camera (droplet size), UV camera (OH* emission, flame size), narrow- and wide-band radiometers.",
+    "fire_safety": "A fuel can keep reacting after the visible flame is out. The record notes support for safer spacecraft systems.",
+    "earth": "Cleaner high-efficiency engines; octane and cetane chemistry.",
+    "src": "PSI-39 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-47": {
+    "roles": [
+      "detection"
+    ],
+    "material": "aerosol",
+    "summary": "Checked that a modified commercial particle counter works in microgravity, so it could be trusted for smoke measurements in SAME. Dust, not smoke, was the test aerosol.",
+    "fuel_form": "No fire. Arizona Road Dust (fine), dispersed with ISS nitrogen in 15-liter Mylar bags (the record's text calls it 'Arizona Red Dust'; the PSI table says Road Dust).",
+    "sensors": "Modified TSI P-Trak condensation particle counter, compared against a DustTrak.",
+    "fire_safety": "Instrument qualification for spacecraft smoke detection research. The brief notes the same instrument type was used for smoke in SAME and dust in DAFT.",
+    "earth": "Smoke detection in submarines and underwater laboratories.",
+    "src": "PSI-47 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-60": {
+    "short": "SPICE soot analysis (ground)",
+    "roles": [
+      "detection"
+    ],
+    "material": "gas",
+    "ground": true,
+    "parent": "PSI-107",
+    "summary": "A ground study that re-analyzed over 1,600 SPICE flight images with computer models to explain why flames soot so differently in microgravity.",
+    "fuel_form": "No new tests. SPICE coflow flame images (raw DSLR) plus simulations of two burner designs.",
+    "sensors": "Color-ratio pyrometry from camera images; soot volume fraction from SPICE light calibration.",
+    "fire_safety": "Soot and smoke formation, relevant to fire detection.",
+    "earth": "Lower-emission combustion systems.",
+    "src": "PSI-60 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-62": {
+    "short": "BASS flame-spread model (ground)",
+    "roles": [
+      "prevention"
+    ],
+    "material": "solid",
+    "ground": true,
+    "parent": "PSI-25",
+    "summary": "A ground modeling study that reproduces concurrent flame spread over solids, checked against BASS and BASS-II flight images.",
+    "fuel_form": "No new tests. Models of PMMA sheets, spheres and rods and wax cylinders from BASS/BASS-II.",
+    "sensors": "Two-color tomography of BASS flight camera images (3D soot and temperature).",
+    "fire_safety": "Aims at predicting flammability limits of spacecraft materials, including the 'Goldilocks' flammability zone reported from BASS.",
+    "earth": "Fire models for safety standards.",
+    "src": "PSI-62 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-68": {
+    "roles": [
+      "suppression"
+    ],
+    "material": "droplet",
+    "summary": "Droplets of fuel mixtures burned across pressures and oxygen levels to map how and when flames go out, including arrays of interacting droplets.",
+    "fuel_form": "Droplets of 1.5-5 mm: isooctane, n-octane, heptane, decane, ethanol, and mixtures (heptane/isooctane, propanol/glycerol); free or fiber-supported, single or in arrays.",
+    "sensors": "Color camera video, chamber pressure and temperature.",
+    "fire_safety": "Extinction boundaries across a wide envelope. The PSI table lists 17, 21, 25 and 30% O2 at 0.5-3.0 atm in nitrogen or helium (the record's text says 10-40% O2). PSI gives the envelope, not individual runs.",
+    "earth": "Cleaner transportation fuels and engines; surrogate fuels.",
+    "src": "PSI-68 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-69": {
+    "roles": [
+      "suppression"
+    ],
+    "material": "droplet",
+    "summary": "Large fuel droplets burned to map the lowest oxygen that supports burning, and how much CO2 or helium it takes to put flames out.",
+    "fuel_form": "Liquid fuel droplets of about 3 mm and larger (heptane, methanol and others in the run table) at 0.5-1.5 atm.",
+    "sensors": "Droplet burning rate, flame extinction, radiation, soot and temperature measurements.",
+    "fire_safety": "The direct suppression study in PSI: how CO2 and helium affect the limiting oxygen index in microgravity.",
+    "earth": "Fire suppression in submarines and high-altitude aircraft; less toxic suppressants.",
+    "src": "PSI-69 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-98": {
+    "roles": [
+      "prevention"
+    ],
+    "material": "solid",
+    "summary": "A large fabric fire lit inside an empty Cygnus cargo ship after it left the ISS, to see how fast a big fire grows in microgravity.",
+    "fuel_form": "One Sibal fabric sheet (cotton on fiberglass), about 0.94 m x 0.4 m; airflow 20 cm/s.",
+    "sensors": "Two cameras, thermocouples, two radiometers, pressure, CO2 and O2 sensors, two anemometers.",
+    "fire_safety": "The only spacecraft-scale fire data: realistic size, real material, no crew at risk.",
+    "earth": "Fire safety in mines, airplanes and submarines.",
+    "src": "PSI-98 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-99": {
+    "roles": [
+      "prevention"
+    ],
+    "material": "solid",
+    "summary": "Nine material samples burned in a Cygnus cargo ship to compare microgravity flammability with NASA's ground screening test.",
+    "fuel_form": "Nine 5 x 29 cm samples: Sibal, silicone, structured and flat PMMA, PMMA with Nomex; airflow 20 or 30 cm/s, concurrent or opposed.",
+    "sensors": "Two cameras, thermocouples, two radiometers, pressure, CO2 and O2 sensors, two anemometers.",
+    "fire_safety": "Direct test of NASA's material selection criteria. At these conditions (about 22% O2, 20 cm/s) the Earth test was the harsher one, but by a large, material-dependent margin.",
+    "key_finding": "The only sample-by-sample Earth vs orbit comparison in PSI: 5 of 9 samples burned farther on Earth, none farther in orbit; thin silicone burned completely on Earth and not at all in orbit (PSI-99 table).",
+    "earth": "Fire safety in mines, airplanes and submarines.",
+    "src": "PSI-99 record: Objectives, Approach; PSI-99 Experimental table"
+  },
+  "PSI-100": {
+    "roles": [
+      "prevention"
+    ],
+    "material": "solid",
+    "summary": "A repeat of the large Sibal fabric fire in Cygnus at a faster airflow.",
+    "fuel_form": "Sibal fabric; airflow 30 cm/s (versus 20 cm/s in Saffire-I), concurrent or opposed.",
+    "sensors": "Two cameras, thermocouples, two radiometers, pressure, CO2 and O2 sensors, two anemometers.",
+    "fire_safety": "How airflow changes a large fire's growth.",
+    "earth": "Fire safety in mines, airplanes and submarines.",
+    "src": "PSI-100 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-101": {
+    "roles": [
+      "detection"
+    ],
+    "material": "smoke",
+    "summary": "Overheated spacecraft materials produced smoke so the team could measure smoke particle sizes in microgravity and how smoke detectors respond. A reflight of SAME with new materials and instruments.",
+    "fuel_form": "Heated (not burning) spacecraft materials; keywords list Pyrell foam, silicone rubber, Teflon, cotton, Kapton. 66 test points.",
+    "sensors": "DustTrak, ionization detector, GRC-built M-pass instrument, thermophoretic samplers for electron microscopy.",
+    "fire_safety": "Microgravity smoke may have larger particles, so some detectors might not alarm. Baseline data for future spacecraft detectors.",
+    "earth": "Smoke detectors for submarines and underwater laboratories.",
+    "src": "PSI-101 record: Objectives, Approach, Hypothesis, Research Impacts"
+  },
+  "PSI-102": {
+    "roles": [
+      "detection"
+    ],
+    "material": "smoke",
+    "summary": "The original smoke experiment: overheated spacecraft materials, two smoke detectors and particle samplers, to learn how microgravity changes smoke.",
+    "fuel_form": "Spacecraft materials heated by an igniter for 15-60 s; each smoke event about 2 minutes.",
+    "sensors": "Two smoke detectors, thermophoretic samplers (electron microscopy), sample mass loss, video.",
+    "fire_safety": "Whether existing smoke detectors work on microgravity smoke.",
+    "earth": "Smoke detectors for submarines and underwater laboratories.",
+    "src": "PSI-102 record: Objectives, Approach, Hypothesis, Research Impacts"
+  },
+  "PSI-106": {
+    "roles": [
+      "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Gas jet flames in a gentle coflow of air, used to find when flames lift off the burner and how dilution changes soot and stability.",
+    "fuel_form": "Methane, ethylene and nitrogen-diluted mixtures; exchangeable burner tubes; 13 test sessions, over 4,000 images.",
+    "sensors": "High-resolution still camera with flow and temperature data overlaid.",
+    "fire_safety": "Flame stability and radiative heat loss. Indirect for habitats.",
+    "earth": "Cleaner engines and industrial burners.",
+    "src": "PSI-106 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-107": {
+    "roles": [
+      "detection"
+    ],
+    "material": "gas",
+    "summary": "526 gas jet flames used to find each fuel's smoke point, the flow at which a flame starts releasing soot.",
+    "fuel_form": "Methane, ethylene, propane, propylene and mixtures; burners of 0.41, 0.76 and 1.6 mm; coflow 5.4-65 cm/s.",
+    "sensors": "Still and video cameras: flame length, radiative heat loss, coflow velocity.",
+    "fire_safety": "How readily fuels make smoke without buoyancy, which feeds detection and model work.",
+    "earth": "Better fuel formulations; soot models.",
+    "src": "PSI-107 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-115": {
+    "short": "SAME smoke simulation (ground)",
+    "roles": [
+      "detection"
+    ],
+    "material": "smoke",
+    "ground": true,
+    "parent": "PSI-102",
+    "summary": "A ground simulation of how smoke particles grow from a heated sample in Earth gravity versus microgravity, using the SAME setup.",
+    "fuel_form": "No new tests. Direct numerical simulation of dibutyl-phthalate smoke in a SAME-like geometry at two cross-flow speeds.",
+    "sensors": "Simulation only.",
+    "fire_safety": "Explains why microgravity smoke differs, for better smoke detectors.",
+    "earth": "Better smoke detection devices.",
+    "src": "PSI-115 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-117": {
+    "short": "FLEX cool-flame CFD (ground)",
+    "roles": [
+      "suppression"
+    ],
+    "material": "droplet",
+    "ground": true,
+    "parent": "PSI-69",
+    "summary": "A 3D computer model of droplet cool flames, checked against FLEX flight data, to map when cool flames ignite, persist, flare into hot flames or go out.",
+    "fuel_form": "No new tests. OpenFOAM simulations of n-alkane droplets, 0.5 to 4 mm.",
+    "sensors": "Simulation only.",
+    "fire_safety": "Safer operating envelopes from cool-flame and extinction behavior.",
+    "earth": "Engine knock, efficiency and emissions.",
+    "src": "PSI-117 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-142": {
+    "short": "Cool-flame counterflow study (ground)",
+    "roles": [
+      "suppression"
+    ],
+    "material": "gas",
+    "ground": true,
+    "parent": "PSI-69",
+    "summary": "Ground experiments and simulations with counterflow flames to connect the flammability limits of hot and cool flames, starting from FLEX observations.",
+    "fuel_form": "No flight tests. Ozone-sensitized counterflow flames; n-heptane and dimethyl ether simulations up to 20 atm.",
+    "sensors": "Laboratory measurements of extinction limit, flame temperature and species.",
+    "fire_safety": "Where hot flames turn into cool flames and when either goes out.",
+    "earth": "High-pressure engine combustion.",
+    "src": "PSI-142 record: Objectives, Approach, Research Impacts"
+  },
+  "PSI-159": {
+    "roles": [
+      "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Cool diffusion flames from a spherical burner, both normal and inside-out, reaching the highest oxygen levels of any PSI microgravity test.",
+    "fuel_form": "Gaseous fuels from a spherical porous burner, normal and inverse. The objectives name propane, n-butane and n-pentane; the PSI run table lists butane, ethane and propane.",
+    "sensors": "Cameras including an intensified video camera, radiometers, photomultiplier tubes, thermocouples.",
+    "fire_safety": "Its normal flames are the only PSI tests inside the Moon Base box (33-39% O2 at 0.5 atm), but they are gas flames, not habitat materials. In inverse flames the high oxygen is the burner stream (up to 85% per the brief), not the room air.",
+    "earth": "Kinetics for ultra-lean, more efficient engines.",
+    "src": "PSI-159 record: Objectives, Approach, Keywords; challenge brief; runs_all.csv"
+  }
+}

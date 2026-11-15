@@ -1,0 +1,1945 @@
+{
+ "_method": "Per-investigation profiles + transparent relevance ranking.\n\nInputs : data/derived/runs_all.csv, data/derived/investigations.csv, data/curated/investigation_notes.json\nOutput : data/derived/investigation_profiles.json, data/derived/ranking.csv\n\nRanking (0-100) per environment = material + role + atmosphere + evidence.\n  material   (0-35): what burned. Real habitat solids 35, solid emulator (BRE) 28, smoke from spacecraft\n                     materials 25, liquid droplets 15, gas flames 10, dust/no fire 8.\n                     Ground studies of flight data get 70% of the material score of what they analyze.\n  role       (0-25): brief's fire-safety roles. Prevention / detection / suppression 25; fundamentals 8.\n  atmosphere (0-25): how close the tested atmospheres come to the environment (computed from runs_all.csv;\n                     see atm_spacecraft / atm_moon). Ground studies 0.\n  evidence   (0-15): run-level rows in PSI tables (0-8) + publications listed in PSI (0-7).\nEvery component is reported, so the rank can be checked and re-weighted.\n",
+ "_generated_with": "SI-assisted (Claude, Anthropic); reviewed by Team Blue Flame",
+ "profiles": [
+  {
+   "psi": "PSI-10",
+   "acronym": "ACME/Flame Design",
+   "title": "Advanced Combustion via Microgravity Experiments / Flame Design",
+   "doi": "10.60555/w4zy-bt45",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-10",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Advanced Combustion via Microgravity Experiments (ACME) Combustion Integrated Rack (CIR) Reconfiguration of Combustion Integrated Rack (CIR)",
+   "start": "01-14-1999",
+   "end": "04-30-2025",
+   "pi": "Richard Peter David Sergey Dennis L. B. L. M. P. Axelbaum Sunderland Urban Frolov Stocker",
+   "publications": 33,
+   "ntrs": 13,
+   "psi_files": "3807",
+   "psi_total_gb": "2030.7",
+   "conditions": {
+    "runs": 327,
+    "runs_inverse": 120,
+    "o2_pct": [
+     19.8,
+     40.0
+    ],
+    "pressure_atm": [
+     0.99211068,
+     1.31056596
+    ],
+    "flow_cm_s": null,
+    "fuels": [
+     "C2H4",
+     "C3H8"
+    ],
+    "fuels_total": 2,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "oxygen",
+     "pressure"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Spherical diffusion flames of ethylene and methane, burning outward (normal) or inward (inverse), to find when flames start to soot and when they go out as dilution, flow and pressure change.",
+    "fuel_form": "Spherical porous burner (normal and inverse flames); also coflow burners. The record names ethylene and methane, diluted with N2 or CO2; the PSI run table lists ethylene (C2H4) and propane (C3H8).",
+    "sensors": "Cameras, radiometers, photomultiplier tubes, thermocouples.",
+    "fire_safety": "Extinction limits of gas flames versus oxygen and dilution. Indirect for habitats: no real materials burned.",
+    "earth": "Cleaner, more efficient combustors, including coal power plant designs.",
+    "src": "PSI-10 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 55,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 22,
+     "evidence": 15,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "71 of 207 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "327 test rows in PSI tables, 33 publications listed in PSI."
+     ],
+     "rank": 12
+    },
+    "moon": {
+     "total": 51,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 18,
+     "evidence": 15,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Has tests at >=30% O2 at or near Moon Base pressure (or pressure not recorded).",
+      "327 test rows in PSI tables, 33 publications listed in PSI."
+     ],
+     "rank": 13
+    }
+   }
+  },
+  {
+   "psi": "PSI-20",
+   "acronym": "ACME BRE",
+   "title": "Advanced Combustion via Microgravity Experiments - Burning Rate Emulator",
+   "doi": "",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-20",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Combustion Integrated Rack (CIR) ACME",
+   "start": "01-01-2010",
+   "end": "02-08-2025",
+   "pi": "John L de Peter James Dennis G. Ris Sunderland Quintiere Stocker",
+   "publications": 16,
+   "ntrs": 5,
+   "psi_files": "2292",
+   "psi_total_gb": "1895.7",
+   "conditions": {
+    "runs": 18,
+    "runs_inverse": 0,
+    "o2_pct": [
+     21.0,
+     40.0
+    ],
+    "pressure_atm": null,
+    "flow_cm_s": null,
+    "fuels": [
+     "100% C2H4",
+     "100% CH4",
+     "100%C2H4",
+     "50% C2H4"
+    ],
+    "fuels_total": 4,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "oxygen"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "prevention"
+    ],
+    "material": "emulator",
+    "summary": "A gas burner tuned to behave like burning solids (the Burning Rate Emulator), used to map when materials keep burning in still air, as a function of material properties.",
+    "fuel_form": "CH4/N2 and C2H4/N2 mixtures through porous circular burners, 25 and 50 mm in diameter.",
+    "sensors": "Heat flux sensor and burner surface temperature, plus flame imaging.",
+    "fire_safety": "PSI's record states the planned atmospheres included NASA exploration atmospheres: 14.7 psia at 21% O2, 10.2 psia at 26.5% O2 and 8.2 psia at 34% O2. It reports quasi-steady burning matching PMMA and nylon in microgravity without airflow in elevated-oxygen atmospheres, while the same flames at 21% O2 self-extinguished. That matters because stopping ventilation is a standard step in fighting a spacecraft fire.",
+    "key_finding": "In elevated oxygen, flames kept burning with no airflow; at 21% they went out on their own (PSI record, preliminary results).",
+    "earth": "Suggests NASA's cone calorimeter test (NASA-STD-6001 Test 2) can measure the properties that predict microgravity burning.",
+    "src": "PSI-20 record: Objectives, Research Impacts/Earth Benefits"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 83,
+     "material": 28,
+     "role": 25,
+     "atmosphere": 21,
+     "evidence": 9,
+     "why": [
+      "Burned/used: emulator.",
+      "Fire-safety role: prevention.",
+      "5 of 18 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "18 test rows in PSI tables, 16 publications listed in PSI."
+     ],
+     "rank": 5
+    },
+    "moon": {
+     "total": 80,
+     "material": 28,
+     "role": 25,
+     "atmosphere": 18,
+     "evidence": 9,
+     "why": [
+      "Burned/used: emulator.",
+      "Fire-safety role: prevention.",
+      "Has tests at >=30% O2 at or near Moon Base pressure (or pressure not recorded).",
+      "18 test rows in PSI tables, 16 publications listed in PSI."
+     ],
+     "rank": 1
+    }
+   }
+  },
+  {
+   "psi": "PSI-21",
+   "acronym": "ACME CLD Flame",
+   "title": "Advanced Combustion via Microgravity Experiments / Coflow Laminar Diffusion Flame",
+   "doi": "10.60555/23e1-9950",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-21",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Combustion Integrated Rack (CIR) ACME",
+   "start": "10-01-2006",
+   "end": "05-31-2022",
+   "pi": "Mitchell Dennis Marshall B. Smooke Stocker Long",
+   "publications": 18,
+   "ntrs": 5,
+   "psi_files": "4134",
+   "psi_total_gb": "1861.1",
+   "conditions": {
+    "runs": 32,
+    "runs_inverse": 0,
+    "o2_pct": null,
+    "pressure_atm": null,
+    "flow_cm_s": null,
+    "fuels": [
+     "100% C2H10",
+     "100% C2H11",
+     "100% C2H4",
+     "100% C2H5",
+     "100% C2H6",
+     "100% C2H7",
+     "100% C2H8",
+     "100% C2H9",
+     "100% CH4",
+     "100% CH5",
+     "100% CH6",
+     "30% C2H4"
+    ],
+    "fuels_total": 30,
+    "diluents": [],
+    "varied": [
+     "fuel"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Weak and sooty coflow flames of methane and ethylene, measured to test computer models at the extremes of fuel dilution.",
+    "fuel_form": "Methane and ethylene, diluted, on a coflow burner.",
+    "sensors": "OH* and CH* chemiluminescence imaging, soot luminosity, laser extinction, thin-filament pyrometry.",
+    "fire_safety": "Extinction and soot behavior for model validation. Indirect for habitats.",
+    "earth": "Better models of soot and extinction for practical combustion devices.",
+    "src": "PSI-21 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 29,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 0,
+     "evidence": 11,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Oxygen is not recorded in the PSI table.",
+      "32 test rows in PSI tables, 18 publications listed in PSI."
+     ],
+     "rank": 24
+    },
+    "moon": {
+     "total": 29,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 0,
+     "evidence": 11,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Oxygen is not recorded in the PSI table.",
+      "32 test rows in PSI tables, 18 publications listed in PSI."
+     ],
+     "rank": 23
+    }
+   }
+  },
+  {
+   "psi": "PSI-22",
+   "acronym": "ACME E-FIELD Flames",
+   "title": "Advanced Combustion via Microgravity Experiments Electric-Field Effects on Laminar Diffusion Flames",
+   "doi": "",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-22",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Combustion Integrated Rack (CIR) ACME",
+   "start": "11-18-2016",
+   "end": "11-17-2020",
+   "pi": "Alice Derek Dennis Chien Dunn-Rankin Stocker",
+   "publications": 25,
+   "ntrs": 2,
+   "psi_files": "2578",
+   "psi_total_gb": "884.8",
+   "conditions": {
+    "runs": 32,
+    "runs_inverse": 0,
+    "o2_pct": null,
+    "pressure_atm": null,
+    "flow_cm_s": null,
+    "fuels": [
+     "100% C2H4",
+     "100% CH4",
+     "30% C2H4",
+     "40% CH4"
+    ],
+    "fuels_total": 4,
+    "diluents": [],
+    "varied": [
+     "fuel"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Methane and ethylene flames pushed by an electric field (up to 10 kV) acting on the ions inside the flame. The challenge brief notes this mimics partial gravity.",
+    "fuel_form": "Methane and ethylene diluted with N2; gas-jet burner and coflow burner, with a copper mesh electrode above.",
+    "sensors": "Ion current through the flame, flame response to electric forcing, imaging.",
+    "fire_safety": "The only PSI investigation that imitates partial gravity (via ion-driven flow). The PSI record says it serves no space application directly.",
+    "earth": "Electric-field control of flames to cut pollutants and fuel use.",
+    "src": "PSI-22 record: Approach, Research Impacts; challenge brief (Partial-gravity data)"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 31,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 0,
+     "evidence": 13,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Oxygen is not recorded in the PSI table.",
+      "32 test rows in PSI tables, 25 publications listed in PSI."
+     ],
+     "rank": 23
+    },
+    "moon": {
+     "total": 31,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 0,
+     "evidence": 13,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Oxygen is not recorded in the PSI table.",
+      "32 test rows in PSI tables, 25 publications listed in PSI."
+     ],
+     "rank": 22
+    }
+   }
+  },
+  {
+   "psi": "PSI-23",
+   "acronym": "ACME s-Flame",
+   "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
+   "doi": "10.60555/k57n-p030",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-23",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Combustion Integrated Rack (CIR) ACME",
+   "start": "02-05-2015",
+   "end": "11-24-2019",
+   "pi": "Dennis Chung Stephen K. Stocker Law Tse",
+   "publications": 44,
+   "ntrs": 5,
+   "psi_files": "4165",
+   "psi_total_gb": "728.5",
+   "conditions": {
+    "runs": 18,
+    "runs_inverse": 0,
+    "o2_pct": [
+     21.0,
+     30.0
+    ],
+    "pressure_atm": null,
+    "flow_cm_s": null,
+    "fuels": [
+     "100% H2",
+     "20% C2H4 with He",
+     "20% H2, 25% CH4, with He",
+     "25% C2H4 with He",
+     "25% H2, 20% CH4, with He",
+     "30% C2H4 with He",
+     "30% H2, 15% CH4, with He",
+     "35% H2 with He",
+     "44.4% H2 with CH4",
+     "45% CH4 with He",
+     "45% CH4 with N2",
+     "45% CH4 with N3"
+    ],
+    "fuels_total": 16,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "oxygen"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Spherical diffusion flames of hydrogen, methane and ethylene, used to measure flame structure, extinction limits and predicted pulsating instabilities.",
+    "fuel_form": "H2/CH4 and C2H4 mixtures with N2, He or CO2 diluents, from a spherical porous burner.",
+    "sensors": "Spectrally resolved images, flame and burner temperatures, radiative flux, flow rates, pressure, acceleration.",
+    "fire_safety": "Extinction limits for model validation. Indirect for habitats.",
+    "earth": "Engine and combustor performance and emissions.",
+    "src": "PSI-23 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 54,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 25,
+     "evidence": 11,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "15 of 18 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "18 test rows in PSI tables, 44 publications listed in PSI."
+     ],
+     "rank": 13
+    },
+    "moon": {
+     "total": 47,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 18,
+     "evidence": 11,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Has tests at >=30% O2 at or near Moon Base pressure (or pressure not recorded).",
+      "18 test rows in PSI tables, 44 publications listed in PSI."
+     ],
+     "rank": 14
+    }
+   }
+  },
+  {
+   "psi": "PSI-25",
+   "acronym": "BASS-II",
+   "title": "Burning and Suppression of Solids - II",
+   "doi": "10.60555/4qc4-de67",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Microgravity Science Glovebox (MSG)",
+   "start": "01-01-2010",
+   "end": "12-31-2022",
+   "pi": "Paul Carlos Fletcher J. James Subrata Ferkul Fernandez-Pello Miller T'ien Bhattachjee",
+   "publications": 17,
+   "ntrs": 8,
+   "psi_files": "695",
+   "psi_total_gb": "255.8",
+   "conditions": {
+    "runs": 129,
+    "runs_inverse": 0,
+    "o2_pct": [
+     13.6,
+     22.2
+    ],
+    "pressure_atm": null,
+    "flow_cm_s": [
+     1.0,
+     49.0
+    ],
+    "fuels": [
+     "0.5\" black rod",
+     "1 cm SIBAL",
+     "1 cm SIBAL, top side ign",
+     "1 cm wide 200 micron thick pmma",
+     "1 cm wide pmma 1 mm thick",
+     "1 cm wide pmma 2 mm thick",
+     "1 cm wide pmma 3 mm thick",
+     "1 cm wide pmma 5 mm thick",
+     "1 cm, 0.2 mm pmma film",
+     "1 mm thick pmma, 1 sided, 2 cm",
+     "1 mm thick pmma, 2 cm wide",
+     "1/2\" clear pmma rod"
+    ],
+    "fuels_total": 52,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "oxygen",
+     "airflow"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "prevention",
+     "suppression"
+    ],
+    "material": "solid",
+    "summary": "Real solid fuels burned in a small wind tunnel on the ISS to find ignition, flame spread and extinction limits at low airflow, and to compare with NASA's ground flammability test.",
+    "fuel_form": "PMMA slabs, rods, spherical sections, films and fabric sheets; airflow up to 40 cm/s.",
+    "sensors": "Video imaging in the Microgravity Science Glovebox; on-board combustion product sensors (CSA-CP, CDM).",
+    "fire_safety": "Tests whether NASA's upward-burning ground test (NASA-STD-6001 Test 1) is conservative for space. Oxygen was varied only below 21% (nitrogen added), so no high-oxygen data.",
+    "earth": "Validated models for wildfires, building fires and waste-to-energy combustion.",
+    "src": "PSI-25 record: Objectives, Approach, Hypothesis, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 96,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 23,
+     "evidence": 13,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention, suppression.",
+      "51 of 129 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "129 test rows in PSI tables, 17 publications listed in PSI."
+     ],
+     "rank": 2
+    },
+    "moon": {
+     "total": 73,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 13,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention, suppression.",
+      "No tests at elevated oxygen in the PSI table.",
+      "129 test rows in PSI tables, 17 publications listed in PSI."
+     ],
+     "rank": 2
+    }
+   }
+  },
+  {
+   "psi": "PSI-26",
+   "acronym": "BASS",
+   "title": "Burning and Suppression of Solids",
+   "doi": "10.60555/58h4-dy80",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-26",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Microgravity Science Glovebox",
+   "start": "10-01-2009",
+   "end": "06-30-2013",
+   "pi": "Sandra L. Paul Funiaki James Olson Ferkul Takahashi T'ien",
+   "publications": 10,
+   "ntrs": 8,
+   "psi_files": "210",
+   "psi_total_gb": "152.3",
+   "conditions": {
+    "runs": 121,
+    "runs_inverse": 0,
+    "o2_pct": [
+     15.9,
+     22.72
+    ],
+    "pressure_atm": [
+     0.97,
+     1.0087105263157894
+    ],
+    "flow_cm_s": [
+     1.0,
+     30.0
+    ],
+    "fuels": [
+     "1 cm sphere",
+     "1 cm sphere, wake",
+     "1 cm wake sphere",
+     "2 cm pmma sphere",
+     "2 cm sphere",
+     "2 cm sphere, wake ign",
+     "Japan Wax Candle, wake",
+     "Nomex III Natural",
+     "Nomex blend 2 cm",
+     "PMMA 1 cm",
+     "PMMA 2 cm",
+     "PMMA slab"
+    ],
+    "fuels_total": 33,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "oxygen",
+     "pressure",
+     "airflow"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "prevention",
+     "suppression"
+    ],
+    "material": "solid",
+    "summary": "The first BASS series: fabrics and plastics burned in opposed and concurrent airflow, plus tests of an inert gas extinguishing agent like the one used on the ISS.",
+    "fuel_form": "Sibal fabric (75% cotton, 25% fiberglass), Nomex, Ultem; flat samples, spheres and cylinders in a 76 x 76 mm flow duct; airflow up to 40 cm/s.",
+    "sensors": "Top and edge-view cameras: flame size, shape, color, spread rate, quenching.",
+    "fire_safety": "Links ground tests to flight behavior and tests nitrogen as a suppressant, a direct link to current extinguishing methods.",
+    "earth": "Models for terrestrial fire problems; performance-based material selection.",
+    "src": "PSI-26 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 98,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 25,
+     "evidence": 13,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention, suppression.",
+      "95 of 121 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "121 test rows in PSI tables, 10 publications listed in PSI."
+     ],
+     "rank": 1
+    },
+    "moon": {
+     "total": 73,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 13,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention, suppression.",
+      "No tests at elevated oxygen in the PSI table.",
+      "121 test rows in PSI tables, 10 publications listed in PSI."
+     ],
+     "rank": 3
+    }
+   }
+  },
+  {
+   "psi": "PSI-39",
+   "acronym": "CFI",
+   "title": "Cool Flames Investigation",
+   "doi": "10.60555/m6pj-a914",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-39",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Multi-User Droplet Combustion Apparatus (MDCA) Combustion Integrated Rack (CIR)",
+   "start": "10-01-2020",
+   "end": "10-20-2021",
+   "pi": "Frederick Daniel Tanvir Vedha Forman Dryer Dietrich Farouk Nayagam Williams",
+   "publications": 7,
+   "ntrs": 1,
+   "psi_files": "2812",
+   "psi_total_gb": "669.5",
+   "conditions": {
+    "runs": 87,
+    "runs_inverse": 0,
+    "o2_pct": [
+     17.0,
+     21.0
+    ],
+    "pressure_atm": [
+     0.5,
+     5.0
+    ],
+    "flow_cm_s": null,
+    "fuels": [
+     "C12H26",
+     "[.60]/[.40] C12H26/iso-dodecane",
+     "[.75]/[.25] C12H26/iso-dodecane"
+    ],
+    "fuels_total": 3,
+    "diluents": [
+     "He 0.29",
+     "He 0.59"
+    ],
+    "varied": [
+     "fuel",
+     "oxygen",
+     "pressure",
+     "diluent"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "fundamentals"
+    ],
+    "material": "droplet",
+    "summary": "Burning droplets of jet-fuel-like liquids to study cool flames, low-temperature flames that keep burning after the hot flame goes out.",
+    "fuel_form": "n-Dodecane, n-dodecane/iso-dodecane mixtures and farnesane droplets, tethered on silicon-carbide fibers or between needles; helium dilution.",
+    "sensors": "Black-and-white camera (droplet size), UV camera (OH* emission, flame size), narrow- and wide-band radiometers.",
+    "fire_safety": "A fuel can keep reacting after the visible flame is out. The record notes support for safer spacecraft systems.",
+    "earth": "Cleaner high-efficiency engines; octane and cetane chemistry.",
+    "src": "PSI-39 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 53,
+     "material": 15,
+     "role": 8,
+     "atmosphere": 21,
+     "evidence": 9,
+     "why": [
+      "Burned/used: droplet.",
+      "Fire-safety role: fundamentals.",
+      "28 of 87 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "87 test rows in PSI tables, 7 publications listed in PSI."
+     ],
+     "rank": 14
+    },
+    "moon": {
+     "total": 32,
+     "material": 15,
+     "role": 8,
+     "atmosphere": 0,
+     "evidence": 9,
+     "why": [
+      "Burned/used: droplet.",
+      "Fire-safety role: fundamentals.",
+      "No tests at elevated oxygen in the PSI table.",
+      "87 test rows in PSI tables, 7 publications listed in PSI."
+     ],
+     "rank": 21
+    }
+   }
+  },
+  {
+   "psi": "PSI-47",
+   "acronym": "DAFT / DAFT-2",
+   "title": "Dust and Aerosol Measurement Feasibility Test / Dust and Aerosol Measurement Feasibility Test-2",
+   "doi": "10.60555/ztgj-d202",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-47",
+   "project_type": "Microgravity Investigation",
+   "hardware": "TSI P-Trak",
+   "start": "03-01-2003",
+   "end": "06-01-2009",
+   "pi": "David Claire L Urban Fortenberry",
+   "publications": 2,
+   "ntrs": 2,
+   "psi_files": "33",
+   "psi_total_gb": "0.0",
+   "conditions": {
+    "runs": 2,
+    "runs_inverse": 0,
+    "o2_pct": null,
+    "pressure_atm": null,
+    "flow_cm_s": null,
+    "fuels": [
+     "Arizona Road Dust (ARD, Fine) in combination with ISS GN2 to create an aerosol for measurement\npurposes."
+    ],
+    "fuels_total": 1,
+    "diluents": [],
+    "varied": [],
+    "fixed": [
+     "fuel = Arizona Road Dust (ARD, Fine) in combination with ISS GN2 to create an aerosol for measurement\npurposes."
+    ]
+   },
+   "notes": {
+    "roles": [
+     "detection"
+    ],
+    "material": "aerosol",
+    "summary": "Checked that a modified commercial particle counter works in microgravity, so it could be trusted for smoke measurements in SAME. Dust, not smoke, was the test aerosol.",
+    "fuel_form": "No fire. Arizona Road Dust (fine), dispersed with ISS nitrogen in 15-liter Mylar bags (the record's text calls it 'Arizona Red Dust'; the PSI table says Road Dust).",
+    "sensors": "Modified TSI P-Trak condensation particle counter, compared against a DustTrak.",
+    "fire_safety": "Instrument qualification for spacecraft smoke detection research. The brief notes the same instrument type was used for smoke in SAME and dust in DAFT.",
+    "earth": "Smoke detection in submarines and underwater laboratories.",
+    "src": "PSI-47 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 36,
+     "material": 8,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 3,
+     "why": [
+      "Burned/used: aerosol.",
+      "Fire-safety role: detection.",
+      "Oxygen is not recorded in the PSI table.",
+      "2 test rows in PSI tables, 2 publications listed in PSI."
+     ],
+     "rank": 21
+    },
+    "moon": {
+     "total": 36,
+     "material": 8,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 3,
+     "why": [
+      "Burned/used: aerosol.",
+      "Fire-safety role: detection.",
+      "Oxygen is not recorded in the PSI table.",
+      "2 test rows in PSI tables, 2 publications listed in PSI."
+     ],
+     "rank": 19
+    }
+   }
+  },
+  {
+   "psi": "PSI-60",
+   "acronym": "",
+   "title": "Computational and Experimental Analysis of SPICE Data Sets",
+   "doi": "10.60555/mzjm-yv57",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-60",
+   "project_type": "Ground Investigation",
+   "hardware": "",
+   "start": "06-05-2019",
+   "end": "08-29-2022",
+   "pi": "Marshall Mitchell Daniel B. D. L. Long Smooke Dietrich",
+   "publications": 1,
+   "ntrs": 1,
+   "psi_files": "1",
+   "psi_total_gb": "0.0",
+   "conditions": null,
+   "notes": {
+    "short": "SPICE soot analysis (ground)",
+    "roles": [
+     "detection"
+    ],
+    "material": "gas",
+    "ground": true,
+    "parent": "PSI-107",
+    "summary": "A ground study that re-analyzed over 1,600 SPICE flight images with computer models to explain why flames soot so differently in microgravity.",
+    "fuel_form": "No new tests. SPICE coflow flame images (raw DSLR) plus simulations of two burner designs.",
+    "sensors": "Color-ratio pyrometry from camera images; soot volume fraction from SPICE light calibration.",
+    "fire_safety": "Soot and smoke formation, relevant to fire detection.",
+    "earth": "Lower-emission combustion systems.",
+    "src": "PSI-60 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 33,
+     "material": 7,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 1,
+     "why": [
+      "Ground study of PSI-107 data (gas); 70% of flight material score.",
+      "Fire-safety role: detection.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 1 publications listed in PSI."
+     ],
+     "rank": 22
+    },
+    "moon": {
+     "total": 33,
+     "material": 7,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 1,
+     "why": [
+      "Ground study of PSI-107 data (gas); 70% of flight material score.",
+      "Fire-safety role: detection.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 1 publications listed in PSI."
+     ],
+     "rank": 20
+    }
+   }
+  },
+  {
+   "psi": "PSI-62",
+   "acronym": "",
+   "title": "Concurrent Flame Spread Modeling using Flamelet Generated Manifolds in Microgravity with Comparison to BASS Experiments using Two-Color Tomography",
+   "doi": "10.60555/e9xp-ex83",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-62",
+   "project_type": "Ground Investigation",
+   "hardware": "",
+   "start": "05-01-2019",
+   "end": "04-30-2021",
+   "pi": "Paul David DesJardin Urban",
+   "publications": 4,
+   "ntrs": 1,
+   "psi_files": "1",
+   "psi_total_gb": "0.0",
+   "conditions": null,
+   "notes": {
+    "short": "BASS flame-spread model (ground)",
+    "roles": [
+     "prevention"
+    ],
+    "material": "solid",
+    "ground": true,
+    "parent": "PSI-25",
+    "summary": "A ground modeling study that reproduces concurrent flame spread over solids, checked against BASS and BASS-II flight images.",
+    "fuel_form": "No new tests. Models of PMMA sheets, spheres and rods and wax cylinders from BASS/BASS-II.",
+    "sensors": "Two-color tomography of BASS flight camera images (3D soot and temperature).",
+    "fire_safety": "Aims at predicting flammability limits of spacecraft materials, including the 'Goldilocks' flammability zone reported from BASS.",
+    "earth": "Fire models for safety standards.",
+    "src": "PSI-62 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 52,
+     "material": 24,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 3,
+     "why": [
+      "Ground study of PSI-25 data (solid); 70% of flight material score.",
+      "Fire-safety role: prevention.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 4 publications listed in PSI."
+     ],
+     "rank": 15
+    },
+    "moon": {
+     "total": 52,
+     "material": 24,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 3,
+     "why": [
+      "Ground study of PSI-25 data (solid); 70% of flight material score.",
+      "Fire-safety role: prevention.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 4 publications listed in PSI."
+     ],
+     "rank": 11
+    }
+   }
+  },
+  {
+   "psi": "PSI-68",
+   "acronym": "FLEX-2",
+   "title": "Flame Extinguishment Experiment - 2",
+   "doi": "10.60555/byp8-h018",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-68",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Combustion Integrated Rack (CIR) Multi-user Droplet Combustion Appartatus (MDCA)",
+   "start": "08-12-2016",
+   "end": "09-30-2019",
+   "pi": "Frederick Benjamin D. Mun Vedha Thomas Daniel Michael Forman A. Dryer Shaw Choi Nayagam Avedisian Dietrich Hicks Williams",
+   "publications": 48,
+   "ntrs": 6,
+   "psi_files": "10077",
+   "psi_total_gb": "1138.0",
+   "conditions": {
+    "runs": 0,
+    "envelope": true,
+    "source": "PSI-68_Experimental table_Flex2.csv",
+    "o2_pct": [
+     17,
+     30
+    ],
+    "o2_levels": "17, 21, 25, 30%",
+    "pressure_atm": [
+     0.5,
+     3.0
+    ],
+    "pressure_levels": "0.5, 1.0, 1.5, 2.0 or 3.0 atm",
+    "flow_cm_s": [
+     0.1,
+     5
+    ],
+    "droplet_mm": "1.5-5",
+    "fuels": [
+     "IsoOctane",
+     "n-Octane",
+     "Heptane",
+     "Decane",
+     "Ethanol",
+     "Propanol 95% / Glycerol 5%",
+     "Heptane 50% / IsoOctane 50%",
+     "Propanol 80% / Glycerol 20%"
+    ],
+    "fuels_total": 8,
+    "diluents": [
+     "O2/N2",
+     "O2/He"
+    ],
+    "varied": [
+     "fuel",
+     "oxygen",
+     "pressure",
+     "diluent",
+     "droplet size"
+    ],
+    "fixed": [
+     "ambient temperature = 25 C"
+    ]
+   },
+   "notes": {
+    "roles": [
+     "suppression"
+    ],
+    "material": "droplet",
+    "summary": "Droplets of fuel mixtures burned across pressures and oxygen levels to map how and when flames go out, including arrays of interacting droplets.",
+    "fuel_form": "Droplets of 1.5-5 mm: isooctane, n-octane, heptane, decane, ethanol, and mixtures (heptane/isooctane, propanol/glycerol); free or fiber-supported, single or in arrays.",
+    "sensors": "Color camera video, chamber pressure and temperature.",
+    "fire_safety": "Extinction boundaries across a wide envelope. The PSI table lists 17, 21, 25 and 30% O2 at 0.5-3.0 atm in nitrogen or helium (the record's text says 10-40% O2). PSI gives the envelope, not individual runs.",
+    "earth": "Cleaner transportation fuels and engines; surrogate fuels.",
+    "src": "PSI-68 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 62,
+     "material": 15,
+     "role": 25,
+     "atmosphere": 15,
+     "evidence": 7,
+     "why": [
+      "Burned/used: droplet.",
+      "Fire-safety role: suppression.",
+      "PSI test envelope includes 21% O2 and 1.0 atm; individual runs are not listed.",
+      "0 test rows in PSI tables, 48 publications listed in PSI."
+     ],
+     "rank": 10
+    },
+    "moon": {
+     "total": 59,
+     "material": 15,
+     "role": 25,
+     "atmosphere": 12,
+     "evidence": 7,
+     "why": [
+      "Burned/used: droplet.",
+      "Fire-safety role: suppression.",
+      "PSI test envelope lists 30% O2 and 0.5 atm among its options, but not which combinations were run.",
+      "0 test rows in PSI tables, 48 publications listed in PSI."
+     ],
+     "rank": 9
+    }
+   }
+  },
+  {
+   "psi": "PSI-69",
+   "acronym": "FLEX",
+   "title": "Flame Extinguishment Experiment",
+   "doi": "10.60555/mbq8-0451",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Combustion Integrated Rack (CIR)-Fluids and Combustion Facility (FCF) Multi-user Droplet Combustion Appartatus (MDCA)",
+   "start": "08-01-2007",
+   "end": "07-31-2016",
+   "pi": "Benjamin Michael Forman Vedha Mun Frederick Daniel D C A Y L Shaw Hicks Williams Nayagam Choi Dryer Dietrich",
+   "publications": 51,
+   "ntrs": 10,
+   "psi_files": "6453",
+   "psi_total_gb": "858.1",
+   "conditions": {
+    "runs": 274,
+    "runs_inverse": 0,
+    "o2_pct": [
+     12.0,
+     34.0
+    ],
+    "pressure_atm": [
+     0.692,
+     3.053
+    ],
+    "flow_cm_s": null,
+    "fuels": [
+     "Heptane",
+     "Methanol"
+    ],
+    "fuels_total": 2,
+    "diluents": [
+     "CO2 0.12",
+     "CO2 0.13",
+     "CO2 0.13; He 0.4",
+     "CO2 0.14",
+     "CO2 0.14; He 0.35",
+     "CO2 0.15"
+    ],
+    "varied": [
+     "fuel",
+     "oxygen",
+     "pressure",
+     "diluent"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "suppression"
+    ],
+    "material": "droplet",
+    "summary": "Large fuel droplets burned to map the lowest oxygen that supports burning, and how much CO2 or helium it takes to put flames out.",
+    "fuel_form": "Liquid fuel droplets of about 3 mm and larger (heptane, methanol and others in the run table) at 0.5-1.5 atm.",
+    "sensors": "Droplet burning rate, flame extinction, radiation, soot and temperature measurements.",
+    "fire_safety": "The direct suppression study in PSI: how CO2 and helium affect the limiting oxygen index in microgravity.",
+    "earth": "Fire suppression in submarines and high-altitude aircraft; less toxic suppressants.",
+    "src": "PSI-69 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 74,
+     "material": 15,
+     "role": 25,
+     "atmosphere": 19,
+     "evidence": 15,
+     "why": [
+      "Burned/used: droplet.",
+      "Fire-safety role: suppression.",
+      "57 of 274 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "274 test rows in PSI tables, 51 publications listed in PSI."
+     ],
+     "rank": 7
+    },
+    "moon": {
+     "total": 73,
+     "material": 15,
+     "role": 25,
+     "atmosphere": 18,
+     "evidence": 15,
+     "why": [
+      "Burned/used: droplet.",
+      "Fire-safety role: suppression.",
+      "Has tests at >=30% O2 at or near Moon Base pressure (or pressure not recorded).",
+      "274 test rows in PSI tables, 51 publications listed in PSI."
+     ],
+     "rank": 4
+    }
+   }
+  },
+  {
+   "psi": "PSI-98",
+   "acronym": "SAFFIRE-I",
+   "title": "Spacecraft Fire Safety Experiment-I",
+   "doi": "10.60555/0t15-1z43",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Saffire 1 enclosure in Cygnus",
+   "start": "03-02-2001",
+   "end": "02-28-2008",
+   "pi": "David L. Urban",
+   "publications": 6,
+   "ntrs": 30,
+   "psi_files": "76",
+   "psi_total_gb": "11.4",
+   "conditions": {
+    "runs": 2,
+    "runs_inverse": 0,
+    "o2_pct": [
+     21.5,
+     21.7
+    ],
+    "pressure_atm": null,
+    "flow_cm_s": [
+     20.0,
+     20.0
+    ],
+    "fuels": [
+     "SIBAL Fabric"
+    ],
+    "fuels_total": 1,
+    "diluents": [],
+    "varied": [],
+    "fixed": [
+     "fuel = SIBAL Fabric",
+     "oxygen = 21.5",
+     "airflow = 20.0"
+    ]
+   },
+   "notes": {
+    "roles": [
+     "prevention"
+    ],
+    "material": "solid",
+    "summary": "A large fabric fire lit inside an empty Cygnus cargo ship after it left the ISS, to see how fast a big fire grows in microgravity.",
+    "fuel_form": "One Sibal fabric sheet (cotton on fiberglass), about 0.94 m x 0.4 m; airflow 20 cm/s.",
+    "sensors": "Two cameras, thermocouples, two radiometers, pressure, CO2 and O2 sensors, two anemometers.",
+    "fire_safety": "The only spacecraft-scale fire data: realistic size, real material, no crew at risk.",
+    "earth": "Fire safety in mines, airplanes and submarines.",
+    "src": "PSI-98 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 90,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 25,
+     "evidence": 5,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention.",
+      "2 of 2 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "2 test rows in PSI tables, 6 publications listed in PSI."
+     ],
+     "rank": 3
+    },
+    "moon": {
+     "total": 65,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 5,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention.",
+      "No tests at elevated oxygen in the PSI table.",
+      "2 test rows in PSI tables, 6 publications listed in PSI."
+     ],
+     "rank": 5
+    }
+   }
+  },
+  {
+   "psi": "PSI-99",
+   "acronym": "SAFFIRE-II",
+   "title": "Spacecraft Fire Experiment-II",
+   "doi": "10.60555/2chp-m469",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-99",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Cygnus Pressurized Cargo Module SAFFIRE",
+   "start": "09-30-2016",
+   "end": "04-01-2017",
+   "pi": "David Gary L. Urban Ruff",
+   "publications": 7,
+   "ntrs": 29,
+   "psi_files": "214",
+   "psi_total_gb": "15.7",
+   "conditions": {
+    "runs": 9,
+    "runs_inverse": 0,
+    "o2_pct": [
+     21.5,
+     22.1
+    ],
+    "pressure_atm": null,
+    "flow_cm_s": [
+     20.0,
+     20.0
+    ],
+    "fuels": [
+     "Cotton-Fiberglass (SIBAL)",
+     "PMMA",
+     "PMMA & Nomex",
+     "Silicone"
+    ],
+    "fuels_total": 4,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "oxygen"
+    ],
+    "fixed": [
+     "airflow = 20.0"
+    ]
+   },
+   "notes": {
+    "roles": [
+     "prevention"
+    ],
+    "material": "solid",
+    "summary": "Nine material samples burned in a Cygnus cargo ship to compare microgravity flammability with NASA's ground screening test.",
+    "fuel_form": "Nine 5 x 29 cm samples: Sibal, silicone, structured and flat PMMA, PMMA with Nomex; airflow 20 or 30 cm/s, concurrent or opposed.",
+    "sensors": "Two cameras, thermocouples, two radiometers, pressure, CO2 and O2 sensors, two anemometers.",
+    "fire_safety": "Direct test of NASA's material selection criteria. At these conditions (about 22% O2, 20 cm/s) the Earth test was the harsher one, but by a large, material-dependent margin.",
+    "key_finding": "The only sample-by-sample Earth vs orbit comparison in PSI: 5 of 9 samples burned farther on Earth, none farther in orbit; thin silicone burned completely on Earth and not at all in orbit (PSI-99 table).",
+    "earth": "Fire safety in mines, airplanes and submarines.",
+    "src": "PSI-99 record: Objectives, Approach; PSI-99 Experimental table"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 90,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 25,
+     "evidence": 5,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention.",
+      "9 of 9 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "9 test rows in PSI tables, 7 publications listed in PSI."
+     ],
+     "rank": 4
+    },
+    "moon": {
+     "total": 65,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 5,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention.",
+      "No tests at elevated oxygen in the PSI table.",
+      "9 test rows in PSI tables, 7 publications listed in PSI."
+     ],
+     "rank": 6
+    }
+   }
+  },
+  {
+   "psi": "PSI-100",
+   "acronym": "SAFFIRE-III",
+   "title": "Spacecraft Fire Experiment-III",
+   "doi": "10.60555/040q-4h36",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-100",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Saffire III enclosure in Cygnus",
+   "start": "04-18-2017",
+   "end": "",
+   "pi": "David L. Urban",
+   "publications": 3,
+   "ntrs": 28,
+   "psi_files": "87",
+   "psi_total_gb": "32.8",
+   "conditions": {
+    "runs": 2,
+    "runs_inverse": 0,
+    "o2_pct": null,
+    "pressure_atm": null,
+    "flow_cm_s": [
+     30.0,
+     30.0
+    ],
+    "fuels": [
+     "SIBAL Fabric"
+    ],
+    "fuels_total": 1,
+    "diluents": [],
+    "varied": [],
+    "fixed": [
+     "fuel = SIBAL Fabric",
+     "airflow = 30.0"
+    ]
+   },
+   "notes": {
+    "roles": [
+     "prevention"
+    ],
+    "material": "solid",
+    "summary": "A repeat of the large Sibal fabric fire in Cygnus at a faster airflow.",
+    "fuel_form": "Sibal fabric; airflow 30 cm/s (versus 20 cm/s in Saffire-I), concurrent or opposed.",
+    "sensors": "Two cameras, thermocouples, two radiometers, pressure, CO2 and O2 sensors, two anemometers.",
+    "fire_safety": "How airflow changes a large fire's growth.",
+    "earth": "Fire safety in mines, airplanes and submarines.",
+    "src": "PSI-100 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 77,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 12,
+     "evidence": 5,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention.",
+      "Oxygen is not recorded in the PSI table; tests ran in Cygnus cargo module air (assumed about 21%, 1 atm).",
+      "2 test rows in PSI tables, 3 publications listed in PSI."
+     ],
+     "rank": 6
+    },
+    "moon": {
+     "total": 65,
+     "material": 35,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 5,
+     "why": [
+      "Burned/used: solid.",
+      "Fire-safety role: prevention.",
+      "Oxygen is not recorded in the PSI table.",
+      "2 test rows in PSI tables, 3 publications listed in PSI."
+     ],
+     "rank": 7
+    }
+   }
+  },
+  {
+   "psi": "PSI-101",
+   "acronym": "SAME-R",
+   "title": "Smoke Aerosol Measurement Experiment-Reflight",
+   "doi": "10.60555/2np7-jv14",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Comparitive Soot Diagnostic Hardware; Refer to final report",
+   "start": "07-01-2010",
+   "end": "09-30-2010",
+   "pi": "Zeng-guang Claire David Jiann Thomas George C W Yuan Fortenberry Urban Yang Cleary Mulholland",
+   "publications": 6,
+   "ntrs": 23,
+   "psi_files": "344",
+   "psi_total_gb": "5.9",
+   "conditions": {
+    "runs": 109,
+    "runs_inverse": 0,
+    "o2_pct": null,
+    "pressure_atm": null,
+    "flow_cm_s": [
+     0.0,
+     8.1
+    ],
+    "fuels": [
+     "Kapton",
+     "Lampwick",
+     "Pyrell",
+     "Silicone",
+     "Teflon"
+    ],
+    "fuels_total": 5,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "airflow"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "detection"
+    ],
+    "material": "smoke",
+    "summary": "Overheated spacecraft materials produced smoke so the team could measure smoke particle sizes in microgravity and how smoke detectors respond. A reflight of SAME with new materials and instruments.",
+    "fuel_form": "Heated (not burning) spacecraft materials; keywords list Pyrell foam, silicone rubber, Teflon, cotton, Kapton. 66 test points.",
+    "sensors": "DustTrak, ionization detector, GRC-built M-pass instrument, thermophoretic samplers for electron microscopy.",
+    "fire_safety": "Microgravity smoke may have larger particles, so some detectors might not alarm. Baseline data for future spacecraft detectors.",
+    "earth": "Smoke detectors for submarines and underwater laboratories.",
+    "src": "PSI-101 record: Objectives, Approach, Hypothesis, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 73,
+     "material": 25,
+     "role": 25,
+     "atmosphere": 12,
+     "evidence": 11,
+     "why": [
+      "Burned/used: smoke.",
+      "Fire-safety role: detection.",
+      "Oxygen is not recorded in the PSI table; tests ran in Glovebox air (assumed about 21%, 1 atm).",
+      "109 test rows in PSI tables, 6 publications listed in PSI."
+     ],
+     "rank": 8
+    },
+    "moon": {
+     "total": 61,
+     "material": 25,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 11,
+     "why": [
+      "Burned/used: smoke.",
+      "Fire-safety role: detection.",
+      "Oxygen is not recorded in the PSI table.",
+      "109 test rows in PSI tables, 6 publications listed in PSI."
+     ],
+     "rank": 8
+    }
+   }
+  },
+  {
+   "psi": "PSI-102",
+   "acronym": "SAME",
+   "title": "Smoke and Aerosol Measurement Experiment",
+   "doi": "10.60555/gd4k-8h62",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-102",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Comparitive Soot Diagnostic Hardware",
+   "start": "03-02-2001",
+   "end": "02-28-2008",
+   "pi": "David George Claire Thomas Jiann Urban Mulholland Fortenberry Cleary Yang",
+   "publications": 16,
+   "ntrs": 11,
+   "psi_files": "101",
+   "psi_total_gb": "0.6",
+   "conditions": {
+    "runs": 8,
+    "runs_inverse": 0,
+    "o2_pct": null,
+    "pressure_atm": null,
+    "flow_cm_s": [
+     5.0,
+     10.0
+    ],
+    "fuels": [
+     "Dibutyl Phthalate: same conditions as 1-4",
+     "Kapton: same conditions as 1-4",
+     "Lampwick: same conditions as 1-4",
+     "Silicone Rubber: same conditions as 1-4",
+     "Teflon"
+    ],
+    "fuels_total": 5,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "airflow"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "detection"
+    ],
+    "material": "smoke",
+    "summary": "The original smoke experiment: overheated spacecraft materials, two smoke detectors and particle samplers, to learn how microgravity changes smoke.",
+    "fuel_form": "Spacecraft materials heated by an igniter for 15-60 s; each smoke event about 2 minutes.",
+    "sensors": "Two smoke detectors, thermophoretic samplers (electron microscopy), sample mass loss, video.",
+    "fire_safety": "Whether existing smoke detectors work on microgravity smoke.",
+    "earth": "Smoke detectors for submarines and underwater laboratories.",
+    "src": "PSI-102 record: Objectives, Approach, Hypothesis, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 69,
+     "material": 25,
+     "role": 25,
+     "atmosphere": 12,
+     "evidence": 7,
+     "why": [
+      "Burned/used: smoke.",
+      "Fire-safety role: detection.",
+      "Oxygen is not recorded in the PSI table; tests ran in Glovebox air (assumed about 21%, 1 atm).",
+      "8 test rows in PSI tables, 16 publications listed in PSI."
+     ],
+     "rank": 9
+    },
+    "moon": {
+     "total": 57,
+     "material": 25,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 7,
+     "why": [
+      "Burned/used: smoke.",
+      "Fire-safety role: detection.",
+      "Oxygen is not recorded in the PSI table.",
+      "8 test rows in PSI tables, 16 publications listed in PSI."
+     ],
+     "rank": 10
+    }
+   }
+  },
+  {
+   "psi": "PSI-106",
+   "acronym": "SLICE",
+   "title": "Structure and Liftoff In Combustion Experiment",
+   "doi": "10.60555/pm12-rg61",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-106",
+   "project_type": "Microgravity Investigation",
+   "hardware": "",
+   "start": "",
+   "end": "",
+   "pi": "Mitchell Fumiaki Marshall Dennis D. Smooke Takahashi Long Stocker",
+   "publications": 5,
+   "ntrs": 4,
+   "psi_files": "18707",
+   "psi_total_gb": "56.6",
+   "conditions": {
+    "runs": 12,
+    "runs_inverse": 0,
+    "o2_pct": null,
+    "pressure_atm": null,
+    "flow_cm_s": null,
+    "fuels": [
+     "100% C2H4",
+     "100% C2H6",
+     "100% CH4",
+     "20% C2H4 (balance N2)",
+     "40% CH4 (balance N2)",
+     "40% CH4 (balance N2) including 2 pyrometry calibration tests and 2 fan calibrations",
+     "70% CH4 (balance N2) including 1 pyrometry calibration test",
+     "70% CH4 (balance N2) including 1 pyrometry calibration test and 2 fan calibrations",
+     "70% CH4 (balance N2) where the fuel bottle was not emptied (in contrast to most days)"
+    ],
+    "fuels_total": 9,
+    "diluents": [],
+    "varied": [
+     "fuel"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Gas jet flames in a gentle coflow of air, used to find when flames lift off the burner and how dilution changes soot and stability.",
+    "fuel_form": "Methane, ethylene and nitrogen-diluted mixtures; exchangeable burner tubes; 13 test sessions, over 4,000 images.",
+    "sensors": "High-resolution still camera with flow and temperature data overlaid.",
+    "fire_safety": "Flame stability and radiative heat loss. Indirect for habitats.",
+    "earth": "Cleaner engines and industrial burners.",
+    "src": "PSI-106 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 37,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 12,
+     "evidence": 7,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Oxygen is not recorded in the PSI table; tests ran in Glovebox flow-duct air (assumed about 21%, 1 atm).",
+      "12 test rows in PSI tables, 5 publications listed in PSI."
+     ],
+     "rank": 19
+    },
+    "moon": {
+     "total": 25,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 0,
+     "evidence": 7,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Oxygen is not recorded in the PSI table.",
+      "12 test rows in PSI tables, 5 publications listed in PSI."
+     ],
+     "rank": 24
+    }
+   }
+  },
+  {
+   "psi": "PSI-107",
+   "acronym": "SPICE",
+   "title": "Smoke Point In Co-flow Experiment",
+   "doi": "10.60555/9kbh-e962",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107",
+   "project_type": "Microgravity Investigation",
+   "hardware": "Microgravity Science Glovebox (MSG)",
+   "start": "",
+   "end": "",
+   "pi": "Peter David Sunderland Urban",
+   "publications": 9,
+   "ntrs": 6,
+   "psi_files": "188",
+   "psi_total_gb": "6.5",
+   "conditions": {
+    "runs": 469,
+    "runs_inverse": 0,
+    "o2_pct": null,
+    "pressure_atm": null,
+    "flow_cm_s": [
+     -5.92,
+     85.28
+    ],
+    "fuels": [
+     "50 % Propylene",
+     "75 % Propylene",
+     "75% Propylene",
+     "Ethylene",
+     "Methane",
+     "Propane",
+     "Propylene"
+    ],
+    "fuels_total": 7,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "airflow"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "detection"
+    ],
+    "material": "gas",
+    "summary": "526 gas jet flames used to find each fuel's smoke point, the flow at which a flame starts releasing soot.",
+    "fuel_form": "Methane, ethylene, propane, propylene and mixtures; burners of 0.41, 0.76 and 1.6 mm; coflow 5.4-65 cm/s.",
+    "sensors": "Still and video cameras: flame length, radiative heat loss, coflow velocity.",
+    "fire_safety": "How readily fuels make smoke without buoyancy, which feeds detection and model work.",
+    "earth": "Better fuel formulations; soot models.",
+    "src": "PSI-107 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 58,
+     "material": 10,
+     "role": 25,
+     "atmosphere": 12,
+     "evidence": 11,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: detection.",
+      "Oxygen is not recorded in the PSI table; tests ran in Glovebox flow-duct air (assumed about 21%, 1 atm).",
+      "469 test rows in PSI tables, 9 publications listed in PSI."
+     ],
+     "rank": 11
+    },
+    "moon": {
+     "total": 46,
+     "material": 10,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 11,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: detection.",
+      "Oxygen is not recorded in the PSI table.",
+      "469 test rows in PSI tables, 9 publications listed in PSI."
+     ],
+     "rank": 15
+    }
+   }
+  },
+  {
+   "psi": "PSI-115",
+   "acronym": "",
+   "title": "Utilization of the Smoke Aerosol Measurement Experiment Data for Advanced Modeling and Simulation of Smoke Generation in Micro-Gravity",
+   "doi": "10.60555/q0v5-1v28",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-115",
+   "project_type": "Ground Investigation",
+   "hardware": "",
+   "start": "01-30-2017",
+   "end": "12-31-2019",
+   "pi": "Sean Michael Garrick Hicks",
+   "publications": 0,
+   "ntrs": 0,
+   "psi_files": "47",
+   "psi_total_gb": "0.2",
+   "conditions": null,
+   "notes": {
+    "short": "SAME smoke simulation (ground)",
+    "roles": [
+     "detection"
+    ],
+    "material": "smoke",
+    "ground": true,
+    "parent": "PSI-102",
+    "summary": "A ground simulation of how smoke particles grow from a heated sample in Earth gravity versus microgravity, using the SAME setup.",
+    "fuel_form": "No new tests. Direct numerical simulation of dibutyl-phthalate smoke in a SAME-like geometry at two cross-flow speeds.",
+    "sensors": "Simulation only.",
+    "fire_safety": "Explains why microgravity smoke differs, for better smoke detectors.",
+    "earth": "Better smoke detection devices.",
+    "src": "PSI-115 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 43,
+     "material": 18,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 0,
+     "why": [
+      "Ground study of PSI-102 data (smoke); 70% of flight material score.",
+      "Fire-safety role: detection.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 0 publications listed in PSI."
+     ],
+     "rank": 17
+    },
+    "moon": {
+     "total": 43,
+     "material": 18,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 0,
+     "why": [
+      "Ground study of PSI-102 data (smoke); 70% of flight material score.",
+      "Fire-safety role: detection.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 0 publications listed in PSI."
+     ],
+     "rank": 16
+    }
+   }
+  },
+  {
+   "psi": "PSI-117",
+   "acronym": "",
+   "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+   "doi": "10.60555/gz0q-b577",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-117",
+   "project_type": "Ground Investigation",
+   "hardware": "",
+   "start": "02-15-2017",
+   "end": "02-14-2022",
+   "pi": "Tanvir Mike Farouk Hicks",
+   "publications": 10,
+   "ntrs": 11,
+   "psi_files": "16",
+   "psi_total_gb": "0.1",
+   "conditions": null,
+   "notes": {
+    "short": "FLEX cool-flame CFD (ground)",
+    "roles": [
+     "suppression"
+    ],
+    "material": "droplet",
+    "ground": true,
+    "parent": "PSI-69",
+    "summary": "A 3D computer model of droplet cool flames, checked against FLEX flight data, to map when cool flames ignite, persist, flare into hot flames or go out.",
+    "fuel_form": "No new tests. OpenFOAM simulations of n-alkane droplets, 0.5 to 4 mm.",
+    "sensors": "Simulation only.",
+    "fire_safety": "Safer operating envelopes from cool-flame and extinction behavior.",
+    "earth": "Engine knock, efficiency and emissions.",
+    "src": "PSI-117 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 40,
+     "material": 10,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 5,
+     "why": [
+      "Ground study of PSI-69 data (droplet); 70% of flight material score.",
+      "Fire-safety role: suppression.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 10 publications listed in PSI."
+     ],
+     "rank": 18
+    },
+    "moon": {
+     "total": 40,
+     "material": 10,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 5,
+     "why": [
+      "Ground study of PSI-69 data (droplet); 70% of flight material score.",
+      "Fire-safety role: suppression.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 10 publications listed in PSI."
+     ],
+     "rank": 17
+    }
+   }
+  },
+  {
+   "psi": "PSI-142",
+   "acronym": "",
+   "title": "Quantitative Studies of Cool Flame Transitions at Radiation / Stretch Extinction Using Counterflow Flames",
+   "doi": "10.60555/80qf-vj95",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-142",
+   "project_type": "Ground Investigation",
+   "hardware": "Principal Investigator Laboratory Hardware",
+   "start": "08-01-2016",
+   "end": "07-31-2021",
+   "pi": "Yiguang Daniel Christopher Ju Dietrich Reuter",
+   "publications": 12,
+   "ntrs": 10,
+   "psi_files": "3",
+   "psi_total_gb": "0.0",
+   "conditions": null,
+   "notes": {
+    "short": "Cool-flame counterflow study (ground)",
+    "roles": [
+     "suppression"
+    ],
+    "material": "gas",
+    "ground": true,
+    "parent": "PSI-69",
+    "summary": "Ground experiments and simulations with counterflow flames to connect the flammability limits of hot and cool flames, starting from FLEX observations.",
+    "fuel_form": "No flight tests. Ozone-sensitized counterflow flames; n-heptane and dimethyl ether simulations up to 20 atm.",
+    "sensors": "Laboratory measurements of extinction limit, flame temperature and species.",
+    "fire_safety": "Where hot flames turn into cool flames and when either goes out.",
+    "earth": "High-pressure engine combustion.",
+    "src": "PSI-142 record: Objectives, Approach, Research Impacts"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 37,
+     "material": 7,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 5,
+     "why": [
+      "Ground study of PSI-69 data (gas); 70% of flight material score.",
+      "Fire-safety role: suppression.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 12 publications listed in PSI."
+     ],
+     "rank": 20
+    },
+    "moon": {
+     "total": 37,
+     "material": 7,
+     "role": 25,
+     "atmosphere": 0,
+     "evidence": 5,
+     "why": [
+      "Ground study of PSI-69 data (gas); 70% of flight material score.",
+      "Fire-safety role: suppression.",
+      "Ground study: no flight atmosphere of its own.",
+      "0 test rows in PSI tables, 12 publications listed in PSI."
+     ],
+     "rank": 18
+    }
+   }
+  },
+  {
+   "psi": "PSI-159",
+   "acronym": "ACME CFI-G",
+   "title": "Advanced Combustion via Microgravity Experiments / Cool Flames Investigation with Gases",
+   "doi": "10.60555/cyt1-kh64",
+   "psi_page": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-159",
+   "project_type": "Microgravity Investigation",
+   "hardware": "ACME Combustion Integrated Rack (CIR)",
+   "start": "",
+   "end": "",
+   "pi": "Dennis Peter Richard Forman P. B. L. Stocker Sunderland Axelbaum Williams",
+   "publications": 2,
+   "ntrs": 1,
+   "psi_files": "3756",
+   "psi_total_gb": "1942.4",
+   "conditions": {
+    "runs": 333,
+    "runs_inverse": 154,
+    "o2_pct": [
+     17.97,
+     39.97
+    ],
+    "pressure_atm": [
+     0.5,
+     3.0
+    ],
+    "flow_cm_s": null,
+    "fuels": [
+     "30% butane",
+     "30% ethane",
+     "30% propane",
+     "50% butane",
+     "butane",
+     "ethane",
+     "propane"
+    ],
+    "fuels_total": 7,
+    "diluents": [],
+    "varied": [
+     "fuel",
+     "oxygen",
+     "pressure"
+    ],
+    "fixed": []
+   },
+   "notes": {
+    "roles": [
+     "fundamentals"
+    ],
+    "material": "gas",
+    "summary": "Cool diffusion flames from a spherical burner, both normal and inside-out, reaching the highest oxygen levels of any PSI microgravity test.",
+    "fuel_form": "Gaseous fuels from a spherical porous burner, normal and inverse. The objectives name propane, n-butane and n-pentane; the PSI run table lists butane, ethane and propane.",
+    "sensors": "Cameras including an intensified video camera, radiometers, photomultiplier tubes, thermocouples.",
+    "fire_safety": "Its normal flames are the only PSI tests inside the Moon Base box (33-39% O2 at 0.5 atm), but they are gas flames, not habitat materials. In inverse flames the high oxygen is the burner stream (up to 85% per the brief), not the room air.",
+    "earth": "Kinetics for ultra-lean, more efficient engines.",
+    "src": "PSI-159 record: Objectives, Approach, Keywords; challenge brief; runs_all.csv"
+   },
+   "scores": {
+    "spacecraft": {
+     "total": 45,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 18,
+     "evidence": 9,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "27 of 179 tests near cabin air (19-23% O2, ~1 atm or pressure not recorded).",
+      "333 test rows in PSI tables, 2 publications listed in PSI."
+     ],
+     "rank": 16
+    },
+    "moon": {
+     "total": 52,
+     "material": 10,
+     "role": 8,
+     "atmosphere": 25,
+     "evidence": 9,
+     "why": [
+      "Burned/used: gas.",
+      "Fire-safety role: fundamentals.",
+      "Has tests inside the Moon Base box (>=30% O2 and <=0.694 atm).",
+      "333 test rows in PSI tables, 2 publications listed in PSI."
+     ],
+     "rank": 12
+    }
+   }
+  }
+ ]
+}

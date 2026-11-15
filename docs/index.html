@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moon Base Fire Evidence</title>
+<meta name="description" content="A dashboard that summarizes, ranks and compares NASA's microgravity combustion investigations for fire safety in spacecraft, a Moon Base and pressurized rovers. 1,984 tests from NASA PSI, every value traced to its source.">
+<meta name="si-assistance" content="Code, data processing and investigation summaries written with SI (Claude, Anthropic) from NASA PSI records; reviewed by Team Blue Flame.">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface-1: #fcfcfb; --surface-2: #f2f1ed; --text-primary: #0b0b0b; --text-secondary: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100; --series-7: #6250d6;
+  --box: rgba(227,73,72,0.10); --box-edge: #e34948; --accent: #2a78d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface-1: #1a1a19; --surface-2: #232321; --text-primary: #f0efec; --text-secondary: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500; --series-7: #9085e9;
+    --box: rgba(230,103,103,0.14); --box-edge: #e66767; --accent: #3987e5;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface-1: #1a1a19; --surface-2: #232321; --text-primary: #f0efec; --text-secondary: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+  --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500; --series-7: #9085e9;
+  --box: rgba(230,103,103,0.14); --box-edge: #e66767; --accent: #3987e5;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--page); color: var(--text-primary);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1120px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 28px; line-height: 1.2; margin: 8px 0 8px; }
+h2 { font-size: 20px; margin: 44px 0 8px; scroll-margin-top: 56px; }
+h3 { font-size: 15px; margin: 0 0 4px; }
+p { margin: 0 0 12px; color: var(--text-secondary); max-width: 760px; }
+a { color: var(--accent); }
+nav.top { position: sticky; top: 0; z-index: 10; background: var(--page); border-bottom: 1px solid var(--border);
+  display: flex; gap: 4px 18px; flex-wrap: wrap; padding: 10px 16px; font-size: 13.5px; justify-content: center; }
+nav.top a { color: var(--text-secondary); text-decoration: none; } nav.top a:hover { color: var(--text-primary); }
+.card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr)); gap: 12px; margin: 20px 0; }
+.tile .v { font-size: 34px; font-weight: 650; line-height: 1.1; }
+.tile .l { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 8px 0 12px; font-size: 14px; }
+.controls label { display: inline-flex; gap: 6px; align-items: center; color: var(--text-secondary); }
+select, input[type=search] { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--axis);
+  background: var(--surface-1); color: var(--text-primary); }
+.seg { display: inline-flex; border: 1px solid var(--axis); border-radius: 9px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; background: transparent; padding: 6px 12px; color: var(--text-secondary); }
+.seg button[aria-pressed="true"] { background: var(--text-primary); color: var(--page); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--text-secondary); margin: 4px 0 8px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+.sq { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex: none; }
+.legend svg { width: 12px; height: 12px; display: inline-block; flex: none; }
+.chart-wrap { position: relative; width: 100%; }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+.tip { position: absolute; pointer-events: none; background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  max-width: 320px; display: none; z-index: 5; color: var(--text-primary); }
+.tip b { font-weight: 600; } .tip .m { color: var(--text-secondary); }
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { color: var(--text-secondary); font-weight: 600; background: var(--surface-1); }
+td.n { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.pager { display: flex; gap: 8px; align-items: center; margin-top: 8px; font-size: 13px; color: var(--text-secondary); flex-wrap: wrap; }
+button { font: inherit; padding: 5px 12px; border-radius: 8px; border: 1px solid var(--axis); background: var(--surface-1);
+  color: var(--text-primary); cursor: pointer; }
+.badge { display: inline-block; font-size: 11.5px; padding: 1px 7px; border-radius: 99px; border: 1px solid var(--axis);
+  color: var(--text-secondary); margin: 0 4px 2px 0; text-decoration: none; white-space: nowrap; }
+a.badge:hover { color: var(--text-primary); }
+.role { font-weight: 600; }
+.note { font-size: 13px; color: var(--text-secondary); }
+ul.find { padding-left: 18px; color: var(--text-secondary); max-width: 820px; } ul.find li { margin: 6px 0; }
+.theme { position: absolute; top: 16px; right: 0; }
+header { position: relative; } header h1 { padding-right: 44px; }
+/* ranking */
+.rk { list-style: none; margin: 0; padding: 0; }
+.rk details { border-bottom: 1px solid var(--grid); }
+.rk summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 30px 1fr 44px; gap: 4px 12px;
+  align-items: center; padding: 10px 2px; }
+.rk summary::-webkit-details-marker { display: none; }
+.rk .n { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 13px; text-align: right; }
+.rk .v { font-size: 18px; font-weight: 650; font-variant-numeric: tabular-nums; text-align: right; }
+.rk .t { font-size: 14.5px; } .rk .s { font-size: 12.5px; color: var(--text-secondary); }
+.bar { display: flex; gap: 2px; height: 10px; margin-top: 6px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; }
+.why { padding: 0 2px 12px 42px; font-size: 13px; color: var(--text-secondary); }
+.why table { margin: 4px 0 8px; max-width: 760px; } .why td:first-child { white-space: nowrap; }
+/* profiles */
+.grid-inv { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 12px; }
+.inv { display: flex; flex-direction: column; gap: 6px; scroll-margin-top: 60px; }
+.inv .meta { font-size: 12.5px; color: var(--text-secondary); }
+.inv dl { margin: 2px 0 0; font-size: 13px; display: grid; grid-template-columns: 92px 1fr; gap: 4px 10px; }
+.inv dt { color: var(--muted); } .inv dd { margin: 0; color: var(--text-primary); }
+.inv .sum { font-size: 13.5px; color: var(--text-primary); margin: 0; }
+.inv .key { font-size: 13px; border-left: 3px solid var(--accent); padding: 2px 0 2px 10px; margin: 2px 0; }
+.inv .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; padding-top: 6px; }
+.inv.sel { outline: 2px solid var(--accent); outline-offset: -1px; }
+.cmpbar { position: sticky; bottom: 12px; z-index: 9; display: none; margin-top: 12px; justify-content: space-between; align-items: center;
+  gap: 8px; flex-wrap: wrap; box-shadow: 0 6px 24px rgba(0,0,0,.14); }
+#cmpTbl td, #cmpTbl th { min-width: 180px; } #cmpTbl th:first-child, #cmpTbl td:first-child { min-width: 110px; color: var(--muted); font-weight: 600; }
+.dl { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.dl a { font-size: 13px; }
+@media (max-width: 600px) { h1 { font-size: 23px; } .tile .v { font-size: 28px; } .why { padding-left: 2px; } .inv dl { grid-template-columns: 1fr; } .inv dt { margin-top: 4px; } }
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Sections">
+  <a href="#chart-sec">Chart</a><a href="#findings-sec">Findings</a><a href="#gf-sec">Earth vs. orbit</a><a href="#rank-sec">Ranking</a><a href="#inv-sec">Investigations</a>
+  <a href="#tests-sec">All tests</a><a href="#earth-sec">On Earth</a><a href="#method-sec">Method &amp; data</a>
+</nav>
+<main>
+<header>
+  <button class="theme" id="themeBtn" aria-label="Toggle dark mode">◐</button>
+  <div class="note">Blue Flame · NASA Space Apps 2026 · Flame in Freefall</div>
+  <h1>Has anything burned in space in a Moon Base atmosphere?</h1>
+  <p>NASA plans Moon Base and rover cabins at about <b>30% oxygen or more and 10.2 psi (0.694 atm) or less</b>, so astronauts
+    can step into 100%-oxygen suits without long pre-breathing. More oxygen makes materials burn more easily.
+    This dashboard puts every test in NASA's Physical Sciences Informatics (PSI) combustion tables on one chart, ranks the
+    24 investigations by how much they tell us about fire safety in a spacecraft or a Moon Base, and summarizes each one.
+    Every value links back to its source.</p>
+</header>
+
+<div class="tiles" id="tiles"></div>
+
+<section class="card" id="chart-sec">
+  <h2 style="margin-top:0">Oxygen vs. pressure for every microgravity test</h2>
+  <div class="controls">
+    <label><input type="checkbox" id="showInverse"> include inverse flames (oxygen is in the burner stream, not the cabin)</label>
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="chart-wrap" id="chartWrap"><svg id="chart" role="img" aria-label="Scatter of oxygen percent against pressure for microgravity combustion tests, with the Moon Base region shaded"></svg><div class="tip" id="tip"></div></div>
+  <p class="note" style="margin-top:8px">Shaded box: Moon Base target from the challenge brief (≥30% O₂, ≤0.694 atm).
+    Bottom strip: tests whose tables record oxygen but no pressure; we don't fill in values the source doesn't give.
+    Hollow squares: Saffire-V and VI solid samples from a NASA paper (ICES-2024-365), shown for reference. They are not in PSI and not counted.</p>
+</section>
+
+<h2 id="findings-sec">What the evidence says</h2>
+<ul class="find" id="findings"></ul>
+
+<h2 id="gf-sec">Earth vs. orbit: do ground tests predict flight?</h2>
+<p>NASA selects spacecraft materials using tests on Earth. Only one PSI table compares the same samples on Earth (1 g) and in orbit:
+  Saffire-II, burned in an uncrewed Cygnus cargo ship at about 22% O₂ and 20 cm/s airflow. Values are copied from the PSI table;
+  the last column is our reading of them.</p>
+<div class="card">
+  <div class="tbl-wrap"><table id="gfTbl"><thead><tr><th>Sample</th><th>Material</th><th>Thickness</th><th>Airflow</th><th>On Earth (1 g)</th><th>In orbit</th><th>Comparison</th></tr></thead><tbody></tbody></table></div>
+  <p class="note" style="margin:10px 0 0" id="gfNote"></p>
+</div>
+<p class="note" style="margin-top:10px">This doesn't mean Earth tests are always the safe side. BASS-II's PSI record states the opposite concern:
+  its hypothesis is that materials in microgravity, with adequate ventilation, "burn as well if not better" than on Earth, so NASA's upward-burning Earth test
+  "may not be conservative for flammability in space." Saffire-II is one set of conditions, not the general rule.</p>
+<p class="note">Other investigations set out to connect Earth and orbit results but publish only the flight side in their PSI tables:
+  BASS and BASS-II (bridging NASA's ground flammability test, NASA-STD-6001 Test 1, to flight), Saffire-I and III, SAME (Earth conditions matched to flight mass loss),
+  and two ground studies that model the difference: SPICE soot analysis and SAME smoke simulation.</p>
+
+<h2 id="rank-sec">Which investigations matter most?</h2>
+<p>A transparent score out of 100 for each habitat. It adds four parts: what burned (real habitat materials score highest),
+  the fire-safety role (prevention, detection, suppression), how close the tested atmospheres come to the habitat, and how
+  much data exists. Click a row to see why it scored that way.</p>
+<div class="card">
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Habitat">
+      <button id="envMoon" aria-pressed="true">Moon Base &amp; rover</button><button id="envCraft" aria-pressed="false">Spacecraft &amp; ISS</button>
+    </div>
+    <label>Role <select id="rkRole"><option value="">all</option><option>prevention</option><option>detection</option><option>suppression</option><option>fundamentals</option></select></label>
+    <label><input type="checkbox" id="rkFlight"> flight experiments only</label>
+  </div>
+  <div class="legend" id="rkLegend"></div>
+  <ol class="rk" id="rkList"></ol>
+  <p class="note" style="margin:10px 0 0" id="rkNote"></p>
+</div>
+
+<h2 id="inv-sec">The 24 investigations</h2>
+<p>What each investigation burned, how, what changed between its tests, what it measured, and what it means for fire safety.
+  Summaries were written with SI from each investigation's PSI record and checked against it; conditions are computed from the PSI tables.
+  Tick <b>Compare</b> on two or three cards to see them side by side.</p>
+<div class="controls">
+  <label>Role <select id="pfRole"><option value="">all</option><option>prevention</option><option>detection</option><option>suppression</option><option>fundamentals</option></select></label>
+  <label>Sort <select id="pfSort"><option value="moon">Moon Base rank</option><option value="spacecraft">Spacecraft rank</option><option value="psi">PSI number</option></select></label>
+  <label><input type="search" id="pfQ" placeholder="search fuel, sensor, material…"></label>
+</div>
+<div class="grid-inv" id="invGrid"></div>
+<div class="card cmpbar" id="cmpBar"><span id="cmpTxt"></span><span><button id="cmpGo">Compare</button> <button id="cmpClr">Clear</button></span></div>
+<section class="card" id="cmpSec" style="display:none;margin-top:16px">
+  <h3 id="cmpH">Side by side</h3>
+  <div class="tbl-wrap"><table id="cmpTbl"></table></div>
+</section>
+
+<h2 id="tests-sec">All tests</h2>
+<div class="card">
+  <div class="controls">
+    <label>Investigation <select id="fInv"><option value="">all</option></select></label>
+    <label>Fuel <select id="fGrp"><option value="">all</option><option value="solid">solid materials</option><option value="droplet">liquid droplets</option><option value="gas">gas flames</option><option value="emulator">solid emulator (BRE)</option><option value="other">smoke / dust</option></select></label>
+    <label><input type="checkbox" id="fMoon"> Moon Base box only</label>
+    <label><input type="search" id="fQ" placeholder="search fuel, outcome…"></label>
+  </div>
+  <div class="tbl-wrap"><table id="tbl"><thead><tr>
+    <th>Investigation</th><th>Run</th><th>Fuel</th><th>O₂ %</th><th>p (atm)</th><th>flow (cm/s)</th><th>Outcome / notes</th><th>Source (PSI file : row)</th>
+  </tr></thead><tbody></tbody></table></div>
+  <div class="pager"><button id="prev" aria-label="Previous page">‹</button><span id="pinfo"></span><button id="next" aria-label="Next page">›</button>
+    <button id="dlRows" style="margin-left:auto">Download these rows (CSV)</button></div>
+</div>
+
+<h2 id="earth-sec">Back on Earth</h2>
+<p>What the PSI records say these investigations offer outside spaceflight.</p>
+<ul class="find" id="earth"></ul>
+
+<h2 id="method-sec">Method and data</h2>
+<ul class="find">
+  <li><b>Source:</b> the official "Experimental table" CSV of each PSI investigation (plus the BASS/BASS-II as-run spreadsheets for oxygen, pressure, airflow and CO), and each investigation's PSI record. Values are copied or unit-converted (mmHg→atm, bar→atm, fraction→%), never estimated.</li>
+  <li><b>Interpretations are flagged in the data:</b> BRE cells reading "3400%" and "2100%" are read as 34% and 21% (spreadsheet formatting); a FLEX pressure of 0 mmHg is treated as missing; "LOW O2" text is not a number. FLEX-2's PSI table lists a test envelope, not individual runs, so it is shown as an envelope.</li>
+  <li><b>Inverse flames</b> (oxygen issues from the burner into a fuel atmosphere) are hidden by default: their oxygen value is not the cabin atmosphere.</li>
+  <li><b>Ranking:</b> score = material (0–35: habitat solids 35, solid emulator 28, smoke from spacecraft materials 25, droplets 15, gas flames 10, dust 8; ground studies get 70% of what they analyze) + role (25 for prevention, detection or suppression; 8 for fundamentals) + atmosphere (0–25, computed from the tables) + evidence (0–15: test rows and publications in PSI). The weights are our judgment; <a href="data/ranking.csv">ranking.csv</a> has every component so anyone can re-weight.</li>
+  <li><b>Mars:</b> the brief names no Mars habitat atmosphere; the Moon Base ranking is the closest match until one is defined.</li>
+  <li><b>Scope: PSI only.</b> Every count on this page is about what PSI's combustion tables hold, not everything NASA has flown. Not in PSI yet: Saffire IV–VI and SoFIE (solids in high-oxygen, low-pressure air), and partial gravity (Moon 1/6 g; LUCI and FM2 are expected later, per the challenge brief).</li>
+  <li><b>How we used SI:</b> the data-processing code, this page's code and the investigation summaries were written with Claude (Anthropic), an SI tool, working from NASA PSI records and tables. The team chose the questions, scope and framing and checked the outputs against the sources. Each summary names the PSI record fields it comes from; each test row names its PSI file and row.</li>
+  <li><b>Not a safety certification.</b> This maps where evidence exists. It does not predict fires or qualify materials.</li>
+</ul>
+<div class="dl" id="dl"></div>
+</main>
+
+<script src="data.js"></script>
+<script>
+(() => {
+const D = window.FIF_DATA, RUNS = D.runs, PROF = D.profiles;
+const MOON_O2 = 30, MOON_P = 0.694;
+const GROUPS = { solid: ["Solid materials", "--series-1"], droplet: ["Liquid droplets", "--series-2"], gas: ["Gas flames", "--series-3"] };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmt = (v, d = 1) => v == null ? "—" : (+v).toFixed(d).replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+const o2hi = r => r.o2max ?? r.o2;
+const inMoon = r => !r.inverse && r.o2 != null && o2hi(r) >= MOON_O2 && r.p != null && r.p <= MOON_P;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const name = p => p.acronym || p.notes.short || p.title;
+
+// theme toggle
+const btn = document.getElementById("themeBtn");
+btn.onclick = () => {
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const cur = document.documentElement.dataset.theme || (dark ? "dark" : "light");
+  document.documentElement.dataset.theme = cur === "dark" ? "light" : "dark";
+  try { localStorage.setItem("fif-theme", document.documentElement.dataset.theme); } catch (e) {}
+  draw();
+};
+try { const t = localStorage.getItem("fif-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+
+// tiles + findings
+const solids = RUNS.filter(r => r.grp === "solid" && r.o2 != null);
+const maxSolid = Math.max(...solids.map(o2hi));
+const moon = RUNS.filter(inMoon);
+const hiAmb = RUNS.filter(r => !r.inverse && r.o2 != null && o2hi(r) >= MOON_O2);
+const nInv = new Set(RUNS.map(r => r.psi)).size;
+const tiles = [
+  [RUNS.length.toLocaleString(), `microgravity tests in NASA PSI combustion tables (${nInv} investigations)`],
+  [moon.length, "PSI tests inside the Moon Base box — all gas flames (ACME CFI-G)"],
+  [RUNS.filter(r => r.grp === "emulator").length, "BRE tests with a burner that emulates solids, up to 40% O₂ — the most Moon-relevant evidence"],
+];
+document.getElementById("tiles").innerHTML = tiles.map(([v, l]) => `<div class="card tile"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+const near = RUNS.filter(r => !r.inverse && r.grp === "droplet" && o2hi(r) >= MOON_O2 && r.p != null && r.p > MOON_P && r.p <= 0.72);
+document.getElementById("findings").innerHTML = [
+  `<b>In PSI, real materials stop at ${fmt(maxSolid)}% oxygen.</b> All ${solids.length} solid-material tests with recorded oxygen (BASS, BASS-II, Saffire I–II) ran at or below normal air — most below it, because they studied when flames go out.`,
+  `<b>NASA has burned solids in Moon-like air, but that data isn't in PSI.</b> Saffire-VI (2021) burned cotton-fiberglass fabric at 31.0% O₂ and 54.1 kPa (7.8 psi), and PMMA at 28.8–30.3% O₂; Saffire-V burned cotton at 26.2% and 70.7 kPa (<a href="https://ntrs.nasa.gov/citations/20240002981" target="_blank" rel="noopener">NASA paper ICES-2024-365, Table 1</a>). SoFIE on the ISS was <a href="https://ntrs.nasa.gov/citations/20200000361" target="_blank" rel="noopener">built to test solids in these atmospheres</a> too. PSI holds Saffire I–III only, so the most Moon-relevant material tests are missing from the archive this challenge is built on.`,
+  `<b>The closest thing to Moon Base evidence is ACME BRE.</b> Its burner emulates burning solids. Its PSI record says the planned atmospheres included NASA's 10.2 psia / 26.5% and 8.2 psia / 34% O₂, and reports that in elevated oxygen its flames kept burning with no airflow, while at 21% they went out on their own. Cutting ventilation is a standard step in fighting a spacecraft fire. The run table records oxygen (up to 40%) but not pressure.`,
+  `<b>Only ${moon.length} tests sit in the Moon Base box</b>, all ACME CFI-G gas flames at 0.5 atm and 33–39% O₂. ${near.length} FLEX fuel droplets ran at 30–34% O₂ just outside it (0.70–0.71 atm, 10.3–10.5 psi).`,
+  `<b>${hiAmb.length} tests reach ≥30% ambient oxygen</b> at some pressure — gas flames, droplets and the BRE solid emulator. In PSI, none of it is for the fabrics and plastics a habitat is made of.`,
+  `<b>Earth results can't simply be carried over to orbit.</b> In Saffire-II, PSI's only sample-by-sample comparison, 5 of 9 samples burned farther on Earth than in orbit and none burned farther in orbit; thin silicone burned completely on Earth and not at all in orbit. At these conditions the Earth test was the harsher one, but the gap is large and depends on the material (see <a href="#gf-sec">Earth vs. orbit</a>).`,
+  `<b>No partial-gravity data in PSI.</b> Microgravity and 1 g can bracket the Moon's 1/6 g; ACME E-FIELD imitated partial gravity with an electric field, but nothing in PSI measures 1/6 g directly.`,
+].map(s => `<li>${s}</li>`).join("");
+
+// legend
+document.getElementById("legend").innerHTML =
+  Object.entries(GROUPS).map(([k, [lab, v]]) => `<span><i class="sw" style="background:var(${v})"></i>${lab}</span>`).join("") +
+  `<span><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1 L11 6 L6 11 L1 6Z" fill="var(--series-7)"/></svg>BRE solid emulator (strip)</span>` +
+  `<span><i class="sq" style="background:var(--surface-1);border:2px solid var(--series-1)"></i>Saffire-V/VI solids (not in PSI)</span>` +
+  `<span><i class="sw" style="background:var(--box);border:1.5px solid var(--box-edge);border-radius:2px"></i>Moon Base box</span>`;
+
+// chart
+const svg = document.getElementById("chart"), tip = document.getElementById("tip"), wrap = document.getElementById("chartWrap");
+let pts = [];
+function draw() {
+  const W = wrap.clientWidth, H = Math.max(360, Math.min(520, W * 0.55));
+  const m = { l: 52, r: 16, t: 12, b: 96 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const showInv = document.getElementById("showInverse").checked;
+  const X = v => m.l + (v / 100) * iw, Y = v => m.t + ih - (v / 3.4) * ih;
+  const ns = "http://www.w3.org/2000/svg";
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = "";
+  const el = (t, a, p = svg) => { const e = document.createElementNS(ns, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+  for (let x = 0; x <= 100; x += 10) { el("line", { x1: X(x), x2: X(x), y1: m.t, y2: m.t + ih, stroke: css("--grid"), "stroke-width": 1 });
+    el("text", { x: X(x), y: m.t + ih + 16, "text-anchor": "middle", "font-size": 11, fill: css("--muted") }).textContent = x; }
+  for (let y = 0; y <= 3; y += 0.5) { el("line", { x1: m.l, x2: m.l + iw, y1: Y(y), y2: Y(y), stroke: css("--grid"), "stroke-width": 1 });
+    el("text", { x: m.l - 8, y: Y(y) + 4, "text-anchor": "end", "font-size": 11, fill: css("--muted") }).textContent = y; }
+  el("line", { x1: m.l, x2: m.l + iw, y1: Y(0), y2: Y(0), stroke: css("--axis") });
+  el("text", { x: m.l + iw / 2, y: m.t + ih + 34, "text-anchor": "middle", "font-size": 12, fill: css("--text-secondary") }).textContent = "Oxygen around the flame (%)";
+  el("text", { x: 14, y: m.t + ih / 2, "text-anchor": "middle", "font-size": 12, fill: css("--text-secondary"), transform: `rotate(-90 14 ${m.t + ih / 2})` }).textContent = "Pressure (atm)";
+  el("rect", { x: X(MOON_O2), y: Y(MOON_P), width: X(100) - X(MOON_O2), height: Y(0) - Y(MOON_P), fill: css("--box"), stroke: css("--box-edge"), "stroke-width": 1.5, "stroke-dasharray": "4 3", rx: 2 });
+  el("text", { x: X(MOON_O2) + 6, y: Y(MOON_P) - 6, "font-size": 12, "font-weight": 600, fill: css("--text-primary") }).textContent = W < 640 ? "Moon Base (≥30% O₂, ≤10.2 psi)" : "Moon Base atmosphere (≥30% O₂, ≤10.2 psi)";
+  const ref = (x, y, lab) => { el("path", { d: `M${X(x) - 5} ${Y(y)} h10 M${X(x)} ${Y(y) - 5} v10`, stroke: css("--text-primary"), "stroke-width": 1.5 });
+    el("text", { x: X(x) + 8, y: Y(y) - 6, "font-size": 11, fill: css("--text-secondary") }).textContent = lab; };
+  ref(100, 0.293, "suit");
+  pts = [];
+  let over = 0;
+  for (const g of ["gas", "droplet", "solid"]) for (const r of RUNS) {
+    if (r.grp !== g || r.o2 == null || r.p == null || (r.inverse && !showInv)) continue;
+    const cx = X(o2hi(r)), cy = Y(Math.min(r.p, 3.4));
+    if (r.p > 3.4) { over++; el("path", { d: `M${cx} ${cy - 5} L${cx + 5} ${cy + 4} L${cx - 5} ${cy + 4}Z`, fill: css(GROUPS[g][1]), stroke: css("--surface-1"), "stroke-width": 1 }); }
+    else el("circle", { cx, cy, r: 4, fill: css(GROUPS[g][1]), "fill-opacity": r.inverse ? 0.35 : 0.85, stroke: css("--surface-1"), "stroke-width": 1.5 });
+    pts.push({ x: cx, y: cy, r });
+  }
+  if (over) el("text", { x: m.l + iw, y: m.t + 10, "text-anchor": "end", "font-size": 11, fill: css("--muted") }).textContent = `▲ ${over} test(s) above 3.4 atm, pinned to top`;
+  // reference only: Saffire-V/VI solids, NASA paper ICES-2024-365 Table 1 [O2 mol %, kPa]. Not in PSI, not counted.
+  for (const [o, k] of [[26.2, 70.7], [31.0, 54.1], [30.3, 54.6], [28.8, 55.2]])
+    el("rect", { x: X(o) - 4.5, y: Y(k / 101.325) - 4.5, width: 9, height: 9, fill: css("--surface-1"), stroke: css("--series-1"), "stroke-width": 2 });
+  el("line", { x1: X(30.3), x2: X(30.3), y1: Y(0.539) + 6, y2: Y(0.34), stroke: css("--muted"), "stroke-width": 1 });
+  el("text", { x: X(30.3) + 5, y: Y(0.3), "font-size": 11, fill: css("--text-secondary") }).textContent = W < 640 ? "Saffire-VI solids (not in PSI)" : "Saffire-VI fabric and PMMA, 2021 (NASA paper; not in PSI)";
+  el("path", { d: `M${X(20.9) - 6} ${Y(1)} h12 M${X(20.9)} ${Y(1) - 6} v12`, stroke: css("--text-primary"), "stroke-width": 2 });
+  el("text", { x: X(20.9) + 4, y: Y(1) - 14, "text-anchor": "start", "font-size": 11, "font-weight": 600, fill: css("--text-primary") }).textContent = "Earth / ISS air (21%, 1 atm)";
+  const sy = m.t + ih + 62;
+  el("text", { x: m.l, y: sy - 12, "font-size": 11, fill: css("--muted") }).textContent = "pressure not recorded →";
+  el("line", { x1: m.l, x2: m.l + iw, y1: sy, y2: sy, stroke: css("--grid") });
+  for (const r of RUNS) {
+    if (r.o2 == null || r.p != null || (r.inverse && !showInv)) continue;
+    if (r.grp === "emulator") {
+      el("line", { x1: X(r.o2), x2: X(o2hi(r)), y1: sy + 10, y2: sy + 10, stroke: css("--series-7"), "stroke-width": 2, "stroke-opacity": .5 });
+      const cx = X(o2hi(r)); el("path", { d: `M${cx} ${sy + 4} L${cx + 6} ${sy + 10} L${cx} ${sy + 16} L${cx - 6} ${sy + 10}Z`, fill: css("--series-7"), stroke: css("--surface-1"), "stroke-width": 1 });
+      pts.push({ x: cx, y: sy + 10, r });
+    } else if (GROUPS[r.grp]) {
+      const cx = X(o2hi(r)); el("circle", { cx, cy: sy, r: 4, fill: css(GROUPS[r.grp][1]), "fill-opacity": .85, stroke: css("--surface-1"), "stroke-width": 1.5 });
+      pts.push({ x: cx, y: sy, r });
+    }
+  }
+}
+function showTip(e) {
+  const b = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal, k = vb.width / b.width;
+  const mx = (e.clientX - b.left) * k, my = (e.clientY - b.top) * k;
+  let best = null, bd = 12 * k;
+  for (const p of pts) { const d = Math.hypot(p.x - mx, p.y - my); if (d < bd) { bd = d; best = p; } }
+  if (!best) { tip.style.display = "none"; return; }
+  const r = best.r, n = pts.filter(p => Math.abs(p.x - best.x) < 1 && Math.abs(p.y - best.y) < 1).length;
+  tip.innerHTML = `<b>${esc(r.inv)}</b> · ${esc(r.id)}<br>${esc(r.fuel.slice(0, 80)) || "—"} <span class="m">(${esc(r.phase)})</span><br>
+    O₂ <b>${fmt(r.o2)}${r.o2max ? "–" + fmt(r.o2max) : ""}%</b> · p <b>${r.p == null ? "not recorded" : fmt(r.p, 2) + " atm"}</b>${r.flow != null ? ` · flow ${fmt(r.flow)} cm/s` : ""}
+    ${r.out ? `<br><span class="m">${esc(r.out.slice(0, 140))}</span>` : ""}${n > 1 ? `<br><span class="m">+${n - 1} more test(s) at this point</span>` : ""}
+    <br><span class="m">${esc(r.psi)} · ${esc(r.src)}${r.row ? " : " + esc(r.row) : ""}</span>`;
+  tip.style.display = "block";
+  const wb = wrap.getBoundingClientRect();
+  let left = e.clientX - wb.left + 14, top = e.clientY - wb.top + 14;
+  if (left + 320 > wb.width) left = e.clientX - wb.left - 330;
+  tip.style.left = Math.max(0, left) + "px"; tip.style.top = top + "px";
+}
+svg.addEventListener("mousemove", showTip); svg.addEventListener("mouseleave", () => tip.style.display = "none");
+document.getElementById("showInverse").onchange = draw;
+addEventListener("resize", draw);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+draw();
+
+// Earth vs orbit (Saffire-II)
+const GF = D.gf || [];
+document.querySelector("#gfTbl tbody").innerHTML = GF.map(g => `<tr><td style="white-space:nowrap">${esc(g.id.replace("Saffire-II-", ""))}</td>
+  <td>${esc(g.material)}</td><td>${esc(g.thickness)}</td><td>${esc(g.flow)} ${esc(g.direction.toLowerCase())}</td>
+  <td>${esc(g.g1)}</td><td>${esc(g.ug)}</td><td><b>${esc(g.verdict)}</b></td></tr>`).join("");
+const farther = GF.filter(g => /Burned on Earth, not in orbit|Burned farther on Earth/.test(g.verdict)).length;
+document.getElementById("gfNote").innerHTML = `${farther} of ${GF.length} samples burned farther on Earth; none burned farther in orbit.
+  In orbit, 29 cm is the full sample length (5 × 29 cm samples, per the PSI record); "Complete" in the Earth column is the PSI table's word.
+  "037 mm" is copied as written (probably 0.37 mm). Notes 2–4 of the PSI table are attached to the rows in the <a href="#tests-sec">All tests</a> table.
+  Two material cells are blank in the PSI table, and we leave them blank. Source: ${GF[0] ? esc(GF[0].src) : "PSI-99 table"}.`;
+
+// ranking
+const PARTS = [["material", "What burned", "--series-1", 35], ["role", "Fire-safety role", "--series-2", 25],
+               ["atmosphere", "Atmosphere match", "--series-3", 25], ["evidence", "Amount of data", "--series-4", 15]];
+document.getElementById("rkLegend").innerHTML = PARTS.map(([k, l, v, mx]) => `<span><i class="sq" style="background:var(${v})"></i>${l} (max ${mx})</span>`).join("");
+let env = "moon";
+const roleBadges = p => (p.notes.roles || []).map(r => `<span class="badge role">${r}</span>`).join("");
+function ranking() {
+  const role = document.getElementById("rkRole").value, flight = document.getElementById("rkFlight").checked;
+  const list = PROF.filter(p => (!role || (p.notes.roles || []).includes(role)) && (!flight || !p.notes.ground))
+    .sort((a, b) => b.scores[env].total - a.scores[env].total);
+  document.getElementById("rkList").innerHTML = list.map(p => {
+    const s = p.scores[env];
+    const segs = PARTS.map(([k, l, v]) => `<i style="width:${s[k]}%;background:var(${v})" title="${l}: ${s[k]}"></i>`).join("");
+    const rows = PARTS.map(([k, l, , mx], i) => `<tr><td>${l}</td><td class="n">${s[k]} / ${mx}</td><td>${esc(s.why[i])}</td></tr>`).join("");
+    return `<li><details><summary><span class="n">${s.rank}</span>
+      <span><span class="t"><b>${esc(name(p))}</b> ${roleBadges(p)}${p.notes.ground ? '<span class="badge">ground study</span>' : ""}</span>
+        <div class="s">${esc(p.notes.summary || p.title)}</div>
+        <div class="bar" aria-hidden="true">${segs}</div></span>
+      <span class="v">${s.total}</span></summary>
+      <div class="why"><table>${rows}</table>
+        ${p.notes.key_finding ? `<div><b>Key finding:</b> ${esc(p.notes.key_finding)}</div>` : ""}
+        <a href="#p-${p.psi}">Full profile ↓</a></div></details></li>`;
+  }).join("");
+  document.getElementById("rkNote").textContent = env === "moon"
+    ? "Moon Base & rover: ≥30% O₂ at ≤10.2 psi (challenge brief). Mars habitats: no atmosphere is defined yet, so this is the closest match. Rank numbers are out of all 24 investigations."
+    : "Spacecraft & ISS: cabin air, about 21% O₂ at 1 atm. Rank numbers are out of all 24 investigations.";
+}
+const setEnv = e => { env = e; document.getElementById("envMoon").setAttribute("aria-pressed", e === "moon");
+  document.getElementById("envCraft").setAttribute("aria-pressed", e === "spacecraft"); ranking(); };
+document.getElementById("envMoon").onclick = () => setEnv("moon");
+document.getElementById("envCraft").onclick = () => setEnv("spacecraft");
+["rkRole", "rkFlight"].forEach(id => document.getElementById(id).addEventListener("input", ranking));
+ranking();
+
+// profiles
+const condText = c => {
+  if (!c) return null;
+  const r = (a, u, d = 1) => a ? (a[0] === a[1] ? `${fmt(a[0], d)} ${u}` : `${fmt(a[0], d)}–${fmt(a[1], d)} ${u}`) : "not recorded";
+  if (c.envelope) return { tests: `Test envelope (no per-run list): ${c.fuels_total} fuels, droplets ${c.droplet_mm} mm`,
+    o2: `${c.o2_levels} (in N₂ or He)`, p: c.pressure_levels, flow: r(c.flow_cm_s, "cm/s") };
+  return { tests: `${c.runs} tests in PSI table${c.runs_inverse ? ` (${c.runs_inverse} inverse flames)` : ""}`,
+    o2: r(c.o2_pct, "%") + (c.runs_inverse ? " (cabin side)" : ""), p: r(c.pressure_atm, "atm", 2), flow: r(c.flow_cm_s, "cm/s") };
+};
+const sel = new Set();
+function profiles() {
+  const role = document.getElementById("pfRole").value, sort = document.getElementById("pfSort").value,
+        q = document.getElementById("pfQ").value.toLowerCase();
+  const num = p => +p.psi.slice(4);
+  const list = PROF.filter(p => (!role || (p.notes.roles || []).includes(role)) &&
+      (!q || JSON.stringify([p.title, p.acronym, p.notes, p.conditions?.fuels]).toLowerCase().includes(q)))
+    .sort((a, b) => sort === "psi" ? num(a) - num(b) : a.scores[sort].rank - b.scores[sort].rank);
+  document.getElementById("invGrid").innerHTML = list.map(p => {
+    const n = p.notes, c = condText(p.conditions);
+    return `<article class="card inv${sel.has(p.psi) ? " sel" : ""}" id="p-${p.psi}">
+      <div><h3>${esc(name(p))}</h3><div class="meta">${esc(p.title)}</div></div>
+      <div>${roleBadges(p)}${n.ground ? `<span class="badge">ground study of ${esc(n.parent)}</span>` : ""}
+        <span class="badge">Moon #${p.scores.moon.rank}</span><span class="badge">Spacecraft #${p.scores.spacecraft.rank}</span></div>
+      <p class="sum">${esc(n.summary || "")}</p>
+      ${n.key_finding ? `<div class="key">${esc(n.key_finding)}</div>` : ""}
+      <dl>
+        <dt>Fuel &amp; samples</dt><dd>${esc(n.fuel_form || "—")}</dd>
+        ${c ? `<dt>Tests</dt><dd>${esc(c.tests)}</dd><dt>Oxygen</dt><dd>${esc(c.o2)}</dd><dt>Pressure</dt><dd>${esc(c.p)}</dd><dt>Airflow</dt><dd>${esc(c.flow)}</dd>
+          <dt>Varied</dt><dd>${esc(p.conditions.varied.join(", ") || "—")}${p.conditions.fixed.length ? `; fixed: ${esc(p.conditions.fixed.join(", ").slice(0, 90))}` : ""}</dd>` : `<dt>Tests</dt><dd>No test table in PSI${n.ground ? " (ground study)" : ""}</dd>`}
+        <dt>Measured</dt><dd>${esc(n.sensors || "—")}</dd>
+        <dt>Fire safety</dt><dd>${esc(n.fire_safety || "—")}</dd>
+        <dt>On Earth</dt><dd>${esc(n.earth || "—")}</dd>
+        <dt>Hardware</dt><dd>${esc(p.hardware || "—")}${p.start ? ` · ${esc(p.start)}–${esc(p.end)}` : ""}</dd>
+      </dl>
+      <div class="foot"><span>${p.doi ? `<a class="badge" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}<a class="badge" href="${esc(p.psi_page)}" target="_blank" rel="noopener">${esc(p.psi)} record</a><span class="badge">${p.publications} publications</span></span>
+        <label class="note"><input type="checkbox" data-cmp="${p.psi}" ${sel.has(p.psi) ? "checked" : ""}> Compare</label></div>
+      <div class="note" style="font-size:11.5px">Summary source: ${esc(n.src || "PSI record")}</div>
+    </article>`;
+  }).join("");
+}
+document.getElementById("invGrid").addEventListener("change", e => {
+  const id = e.target.dataset.cmp; if (!id) return;
+  if (e.target.checked) { if (sel.size >= 3) { e.target.checked = false; alert("Compare up to three investigations."); return; } sel.add(id); }
+  else sel.delete(id);
+  e.target.closest(".inv").classList.toggle("sel", e.target.checked);
+  cmpBar();
+});
+function cmpBar() {
+  const b = document.getElementById("cmpBar");
+  b.style.display = sel.size ? "flex" : "none";
+  document.getElementById("cmpTxt").textContent = `${sel.size} selected: ${[...sel].map(id => name(PROF.find(p => p.psi === id))).join(", ")}${sel.size < 2 ? " — pick one more" : ""}`;
+  document.getElementById("cmpGo").disabled = sel.size < 2;
+}
+document.getElementById("cmpGo").onclick = () => {
+  const ps = [...sel].map(id => PROF.find(p => p.psi === id));
+  const row = (lab, f) => `<tr><td>${lab}</td>${ps.map(p => `<td>${f(p)}</td>`).join("")}</tr>`;
+  const c = p => condText(p.conditions) || {};
+  document.getElementById("cmpTbl").innerHTML =
+    `<thead><tr><th></th>${ps.map(p => `<th>${esc(name(p))}</th>`).join("")}</tr></thead><tbody>` +
+    row("Role", p => (p.notes.roles || []).join(", ")) +
+    row("Moon / spacecraft score", p => `${p.scores.moon.total} (#${p.scores.moon.rank}) / ${p.scores.spacecraft.total} (#${p.scores.spacecraft.rank})`) +
+    row("What it did", p => esc(p.notes.summary)) +
+    row("Fuel & samples", p => esc(p.notes.fuel_form)) +
+    row("Tests", p => esc(c(p).tests || "No test table")) +
+    row("Oxygen", p => esc(c(p).o2 || "—")) + row("Pressure", p => esc(c(p).p || "—")) + row("Airflow", p => esc(c(p).flow || "—")) +
+    row("Varied", p => esc(p.conditions ? p.conditions.varied.join(", ") : "—")) +
+    row("Measured", p => esc(p.notes.sensors)) +
+    row("Fire safety", p => esc(p.notes.fire_safety)) +
+    row("Key finding", p => esc(p.notes.key_finding || "—")) +
+    row("Hardware", p => esc(p.hardware || "—")) +
+    row("Publications in PSI", p => p.publications) + "</tbody>";
+  const s = document.getElementById("cmpSec"); s.style.display = "block"; s.scrollIntoView({ block: "start" });
+};
+document.getElementById("cmpClr").onclick = () => { sel.clear(); cmpBar(); profiles(); document.getElementById("cmpSec").style.display = "none"; };
+["pfRole", "pfSort", "pfQ"].forEach(id => document.getElementById(id).addEventListener("input", profiles));
+profiles();
+// a link to a profile that the current filter hides: clear the filter, then go there
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#p-"]'); if (!a) return;
+  const id = a.getAttribute("href").slice(1);
+  if (document.getElementById(id)) return;
+  e.preventDefault(); document.getElementById("pfRole").value = ""; document.getElementById("pfQ").value = ""; profiles();
+  const t = document.getElementById(id); if (t) t.scrollIntoView();
+});
+
+// table
+const invSel = document.getElementById("fInv");
+[...new Set(RUNS.map(r => r.inv))].forEach(i => invSel.insertAdjacentHTML("beforeend", `<option>${esc(i)}</option>`));
+let page = 0; const PER = 50;
+function rows() {
+  const fi = invSel.value, fg = document.getElementById("fGrp").value, fm = document.getElementById("fMoon").checked,
+        q = document.getElementById("fQ").value.toLowerCase();
+  return RUNS.filter(r => (!fi || r.inv === fi) && (!fg || r.grp === fg) && (!fm || inMoon(r)) &&
+    (!q || (r.fuel + " " + r.out + " " + r.det + " " + r.id).toLowerCase().includes(q)));
+}
+function table() {
+  const rs = rows(), pages = Math.max(1, Math.ceil(rs.length / PER)); page = Math.min(page, pages - 1);
+  document.querySelector("#tbl tbody").innerHTML = rs.slice(page * PER, page * PER + PER).map(r => `<tr>
+    <td>${esc(r.inv)}</td><td style="white-space:nowrap">${esc(r.id)}</td><td>${esc(r.fuel.slice(0, 60))}<div class="note">${esc(r.phase)}</div></td>
+    <td class="n">${fmt(r.o2)}${r.o2max ? "–" + fmt(r.o2max) : ""}</td><td class="n">${r.p == null ? "—" : fmt(r.p, 2)}</td>
+    <td class="n">${fmt(r.flow)}</td><td>${esc(r.out.slice(0, 120))}${r.det ? `<div class="note">${esc(r.det.slice(0, 220))}</div>` : ""}</td>
+    <td class="note">${esc(r.psi)} · ${esc(r.src.replace(/^PSI-\d+_/, "").replace(/^(Science Documents|Experimental table)_/, ""))}${r.row ? " : " + esc(r.row) : ""}</td></tr>`).join("");
+  document.getElementById("pinfo").textContent = `${rs.length.toLocaleString()} tests · page ${page + 1} / ${pages}`;
+}
+["fInv", "fGrp", "fMoon", "fQ"].forEach(id => document.getElementById(id).addEventListener("input", () => { page = 0; table(); }));
+document.getElementById("prev").onclick = () => { page = Math.max(0, page - 1); table(); };
+document.getElementById("next").onclick = () => { page++; table(); };
+document.getElementById("dlRows").onclick = () => {
+  const cols = [["investigation", "inv"], ["psi", "psi"], ["run_id", "id"], ["date", "date"], ["fuel", "fuel"], ["fuel_phase", "phase"],
+    ["o2_pct", "o2"], ["o2_pct_max", "o2max"], ["pressure_atm", "p"], ["flow_cm_s", "flow"], ["diluent", "dil"], ["outcome", "out"],
+    ["details", "det"], ["gravity", "g"], ["source_file", "src"], ["source_row", "row"]];
+  const q = v => v == null ? "" : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
+  const csv = [cols.map(c => c[0]).join(","), ...rows().map(r => cols.map(c => q(r[c[1]])).join(","))].join("\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv" }));
+  a.download = "flame_in_freefall_tests.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+};
+table();
+
+// Earth
+document.getElementById("earth").innerHTML = [
+  ["Smoke detection in submarines and underwater laboratories", ["PSI-102", "PSI-101", "PSI-47"]],
+  ["Fire safety in mines, airplanes and submarines: sealed spaces like the Cygnus module", ["PSI-98", "PSI-99", "PSI-100"]],
+  ["Fire suppression in submarines and high-altitude aircraft, and less toxic suppressants", ["PSI-69"]],
+  ["Fire models for wildfires, building fires and waste-to-energy combustion", ["PSI-25", "PSI-26"]],
+  ["Material testing: a cone calorimeter test may predict how materials burn in still air", ["PSI-20"]],
+  ["Cleaner, more efficient engines and burners", ["PSI-39", "PSI-159", "PSI-10", "PSI-21", "PSI-23", "PSI-22", "PSI-68", "PSI-106", "PSI-107"]],
+].map(([t, ids]) => `<li><b>${t}.</b> ${ids.map(id => { const p = PROF.find(x => x.psi === id); return `<a href="#p-${id}">${esc(name(p))}</a>`; }).join(", ")}</li>`).join("");
+
+// downloads
+document.getElementById("dl").innerHTML = "<b style='font-size:13px;align-self:center'>Download the dataset:</b>" + [
+  ["runs_all.csv", "all 1,984 tests"], ["runs_bass.csv", "250 BASS burns, detailed"], ["investigations.csv", "24 investigations"],
+  ["publications.csv", "352 publications"], ["ranking.csv", "scores"], ["investigation_profiles.json", "profiles"],
+].map(([f, l]) => `<a class="badge" href="data/${f}" download>${f} · ${l}</a>`).join("");
+})();
+</script>
+</body>
+</html>
